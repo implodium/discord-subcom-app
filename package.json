@@ -14,5 +14,8 @@
     "typescript"
   ],
   "author": "QuirinEcker",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^3.9.3"
+  }
 }
