@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  typescript:
+    image: discord-subcom-bot/typescript
+    container_name: discord-subcom-bot_typescript
+    build:
+      context: .
+      dockerfile: ./docker/typescript/develop.Dockerfile
+    volumes:
+    - ./:/usr/src/app
+
+  postgres:
+    image: postgres
+    container_name: discord-subcom-bot_postgres
+    environment:
+      POSTGRES_PASSWORD: app
+      POSTGRES_USER: app
+      POSTGRES_DB: db
+    ports:
+    - 5432:5432
