@@ -1,4 +1,4 @@
-version: "3"
+version: '3.7'
 
 services:
   typescript:
@@ -7,8 +7,8 @@ services:
     build:
       context: .
       dockerfile: ./docker/typescript/develop.Dockerfile
-    volumes:
-    - ./:/usr/src/app
+    ports:
+      - 9229:9229
 
   postgres:
     image: postgres

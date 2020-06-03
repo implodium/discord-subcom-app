@@ -4,7 +4,8 @@
   "description": "Bot for creating Sub Communities",
   "main": "./src/index.ts",
   "scripts": {
-    "docker-develop": "docker-compose -f docker-compose.develop.yml up -d"
+    "docker-develop": "docker-compose -f docker-compose.develop.yml up -d --build",
+    "app": "tsc-watch --onSuccess \"node --inspect=0.0.0.0:9229 dist/\""
   },
   "keywords": [
     "node",
@@ -16,6 +17,7 @@
   "author": "QuirinEcker",
   "license": "ISC",
   "dependencies": {
+    "tsc-watch": "^4.2.8",
     "typescript": "^3.9.3"
   }
 }
