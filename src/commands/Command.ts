@@ -2,10 +2,12 @@ import {Message} from "eris";
 
 export abstract class Command {
 
-    protected minArgs: number;
-    protected maxArgs: number;
+    public name: string;
+    private readonly minArgs: number;
+    private readonly maxArgs: number;
 
-    constructor(minArgs: number, maxArgs: number) {
+    protected constructor(name: string, minArgs: number, maxArgs: number) {
+        this.name = name
         this.minArgs = minArgs;
         this.maxArgs = maxArgs;
     }

@@ -1,6 +1,8 @@
 import {CommandClient} from "eris";
 import {readFileSync} from 'fs';
 import {Config} from "./Config";
+import {Echo} from "./commands/Echo";
+import {Command} from "./commands/Command";
 
 export class SubComBot {
 
@@ -21,6 +23,7 @@ export class SubComBot {
             await this.bot.connect()
             this.bot.on('ready', () => {
                 resolve("connected");
+                this.init();
             })
         })
     }
@@ -28,4 +31,20 @@ export class SubComBot {
     readConfig(): Config {
         return JSON.parse(readFileSync('./config/config.json', 'utf-8'));
     }
+
+    private init() {
+        this.initializeCommands();
+    }
+
+    private initializeCommands() {
+        this.initializeCommand(new Echo())
+    }
+
+    private initializeCommand(command: Command) {
+        this.bot.registerCommand(
+            command.name,
+            (msg, args) => command.execute(msg, args)
+        );
+    }
+
 }
