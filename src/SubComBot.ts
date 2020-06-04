@@ -16,7 +16,7 @@ export class SubComBot {
         )
     }
 
-    run() {
+    run(): Promise<string> {
         return new Promise(async resolve => {
             await this.bot.connect()
             this.bot.on('ready', () => {
