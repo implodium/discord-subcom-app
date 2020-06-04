@@ -13,8 +13,10 @@ export class Settings extends Command {
                 msg.channel.createMessage('changing prefix');
                 break;
             case 'role':
-                msg.channel.createMessage('changing the access role');
+                msg.channel.createMessage('changing the access role (Not jet implemented)');
                 break;
+            default:
+                throw Error("Invalid Settings Property")
         }
     }
 
