@@ -23,7 +23,7 @@ export abstract class Command {
     }
 
     protected argsAreValid(args: Array<string>) {
-        return args.length < this.maxArgs && args.length > this.minArgs;
+        return args.length <= this.maxArgs && args.length >= this.minArgs;
     }
 
     protected abstract run(msg: Message, args: Array<string>): void;
