@@ -10,7 +10,7 @@ export class Settings extends Command {
     protected run(msg: Message, args: Array<string>): void {
         switch (args[0]) {
             case 'prefix':
-                msg.channel.createMessage('changing prefix');
+                const prefix = args[1];
                 break;
             case 'role':
                 msg.channel.createMessage('changing the access role (Not jet implemented)');
