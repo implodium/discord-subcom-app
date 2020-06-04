@@ -13,7 +13,7 @@ export abstract class Command {
 
     public execute(msg: Message, args: Array<string>) {
         try {
-            if (this.argsAreValid(args)) this.run();
+            if (this.argsAreValid(args)) this.run(msg, args);
             else throw new Error('Invalid Arguments')
         } catch (e) {
             msg.channel.createMessage(e.message)
@@ -24,5 +24,5 @@ export abstract class Command {
         return args.length < this.maxArgs && args.length > this.minArgs;
     }
 
-    protected abstract run(): void;
+    protected abstract run(msg: Message, args: Array<string>): void;
 }
