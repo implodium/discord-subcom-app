@@ -3,6 +3,7 @@ import {readFileSync} from 'fs';
 import {Config} from "./Config";
 import {Echo} from "./commands/Echo";
 import {Command} from "./commands/Command";
+import {Settings} from "./commands/Settings";
 
 export class SubComBot {
 
@@ -38,6 +39,7 @@ export class SubComBot {
 
     private initializeCommands() {
         this.initializeCommand(new Echo())
+        this.initializeCommand(new Settings())
     }
 
     private initializeCommand(command: Command) {
