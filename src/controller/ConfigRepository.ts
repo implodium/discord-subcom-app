@@ -24,7 +24,25 @@ export class ConfigRepository extends Repository<ServerConfig> {
     }
 
     async update(object: ServerConfig): Promise<number> {
-        return Promise.resolve(0);
+        await DataBase.client.connect();
+
+        return new Promise((resolve, reject) => {
+            DataBase.client.query(
+                'UPDATE CONFIG SET prefix = $1 WHERE guildid = $2',
+                [object.prefix, object.guildId],
+                (err, res) => {
+                    if (err) {
+                        reject(err.stack)
+                    } else if (res.rowCount == 0) {
+                        reject("ServerConfig doesn't exist")
+                    } else {
+                        resolve(res.rowCount)
+                    }
+
+                    DataBase.client.end();
+                }
+            )
+        })
     }
 
     async insert(object: ServerConfig): Promise<number> {
