@@ -1,5 +1,6 @@
 import {Repository} from "./Repository";
 import {ServerConfig} from "../ServerConfig";
+import {DataBase} from "./DataBase";
 
 export class ConfigRepository extends Repository<ServerConfig> {
     async delete(id: number): Promise<void> {
@@ -7,7 +8,17 @@ export class ConfigRepository extends Repository<ServerConfig> {
     }
 
     async get(id: number): Promise<ServerConfig> {
-        return Promise.resolve(new ServerConfig(';'));
+        await DataBase.client.connect()
+
+        return new Promise((resolve, reject) => {
+            DataBase.client.query(
+                'SELECT * FROM config WHERE id = 1',
+                (err, res) => {
+                    if (res.rows.length < 1) reject('ServerConfig not found')
+                    else resolve(new ServerConfig(res.rows[0].prefix))
+                }
+            )
+        })
     }
 
     async insert(object: ServerConfig): Promise<void> {
