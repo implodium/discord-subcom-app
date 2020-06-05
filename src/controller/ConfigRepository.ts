@@ -21,11 +21,11 @@ export class ConfigRepository extends Repository<ServerConfig> {
         })
     }
 
-    async insert(object: ServerConfig): Promise<void> {
-        return Promise.resolve(undefined);
+    async update(object: ServerConfig): Promise<number> {
+        return Promise.resolve(0);
     }
 
-    async update(object: ServerConfig): Promise<number> {
+    async insert(object: ServerConfig): Promise<number> {
         return Promise.resolve(0);
     }
 
