@@ -1,5 +1,5 @@
 CREATE TABLE CONFIG (
-    serverId INT,
+    guildId INT,
     prefix varchar(10),
-    CONSTRAINT PK_CONFIG PRIMARY KEY (serverId)
+    CONSTRAINT PK_CONFIG PRIMARY KEY (guildId)
 )
