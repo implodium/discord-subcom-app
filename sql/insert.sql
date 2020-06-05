@@ -1,1 +1,1 @@
-insert into config(prefix) values (';');
+insert into config(serverid, prefix) values (1, ';');
