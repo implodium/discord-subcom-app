@@ -12,7 +12,7 @@ export class ConfigRepository extends Repository<ServerConfig> {
 
         return new Promise((resolve, reject) => {
             DataBase.client.query(
-                'SELECT * FROM config WHERE id = 1',
+                `SELECT * FROM config WHERE id = ${id}`,
                 (err, res) => {
                     if (res.rows.length < 1) reject('ServerConfig not found')
                     else resolve(new ServerConfig(res.rows[0].prefix))
