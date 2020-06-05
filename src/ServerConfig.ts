@@ -1,7 +1,9 @@
 export class ServerConfig {
     public prefix: string;
+    public serverId: number;
 
-    constructor(prefix: string) {
+    constructor(serverId: number, prefix: string) {
+        this.serverId = serverId;
         this.prefix = prefix;
     }
 }
