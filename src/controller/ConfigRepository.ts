@@ -1,18 +1,21 @@
 import {Repository} from "./Repository";
 import {ServerConfig} from "../ServerConfig";
 
-export class ConfigRepository implements Repository<ServerConfig> {
-    delete(id: number): void {
+export class ConfigRepository extends Repository<ServerConfig> {
+    async delete(id: number): Promise<void> {
+        return Promise.resolve(undefined);
     }
 
-    get(id: number): ServerConfig {
-        return new ServerConfig(";");
+    async get(id: number): Promise<ServerConfig> {
+        return Promise.resolve(new ServerConfig(';'));
     }
 
-    insert(object: ServerConfig): void {
+    async insert(object: ServerConfig): Promise<void> {
+        return Promise.resolve(undefined);
     }
 
-    update(object: ServerConfig): number {
-        return -1;
+    async update(object: ServerConfig): Promise<number> {
+        return Promise.resolve(0);
     }
+
 }
