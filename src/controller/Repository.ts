@@ -1,6 +1,6 @@
-export interface Repository<T> {
-    update(object: T): number;
-    delete(id: number): void;
-    insert(object: T): void;
-    get(id: number): T;
+export abstract class Repository<T> {
+    abstract async update(object: T): Promise<number>;
+    abstract async delete(id: number): Promise<void>;
+    abstract async insert(object: T): Promise<void>;
+    abstract async get(id: number): Promise<T>;
 }
