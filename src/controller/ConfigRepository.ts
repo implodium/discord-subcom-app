@@ -18,6 +18,8 @@ export class ConfigRepository extends Repository<ServerConfig> {
                     else resolve(new ServerConfig(res.rows[0].guildid, res.rows[0].prefix))
                 }
             )
+
+            DataBase.client.end();
         })
     }
 
