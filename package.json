@@ -23,7 +23,9 @@
     "tsc-watch": "^4.2.8",
     "typescript": "^3.9.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^26.0.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/implodium/discord-subcom-bot.git"
