@@ -6,7 +6,7 @@ jest.setTimeout(30000);
 
 
 beforeEach(async(done) => {
-    await DataBase.query('DELETE FROM config where guildid = -1')
+    await DataBase.query('DELETE FROM config where guildid < 0')
     await DataBase.query(
         'INSERT INTO config (guildid, prefix) values ($1, $2)',
         [-1, ';']
@@ -25,4 +25,7 @@ test('update',  async (done) => {
     expect(result.rows[0].prefix).toBe('.')
 
     done();
+})
+
+test('insert', async done => {
 })
