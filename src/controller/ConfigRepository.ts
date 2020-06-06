@@ -8,7 +8,11 @@ export class ConfigRepository extends Repository<ServerConfig> {
     }
 
     async insert(object: ServerConfig): Promise<number> {
-        return Promise.resolve(0);
+        await DataBase.query(
+            'INSERT INTO config (guildid, prefix) VALUES ($1, $2)',
+            [object.guildId, object.prefix]
+        )
+        return object.guildId;
     }
 
     async get(id: number): Promise<ServerConfig> {
