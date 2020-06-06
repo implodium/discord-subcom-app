@@ -46,3 +46,14 @@ test('get', async done => {
     expect(serverConfig.guildId).toBe(-1)
     done();
 })
+
+test('delete', async done => {
+    await DataBase.configRepository.delete(-1);
+
+    const result: QueryResult = await DataBase.query(
+        'SELECT * FROM config WHERE guildid = -1'
+    );
+
+    expect(result.rows.length).toBe(0);
+    done();
+})
