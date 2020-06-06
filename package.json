@@ -5,7 +5,8 @@
   "main": "./src/index.ts",
   "scripts": {
     "docker-develop": "docker-compose -f docker-compose.develop.yml up -d --build",
-    "app": "tsc-watch --onSuccess \"node --inspect=0.0.0.0:9229 dist/\""
+    "app": "tsc-watch --onSuccess \"node --inspect=0.0.0.0:9229 dist/\"",
+    "test": "jest"
   },
   "keywords": [
     "node",
@@ -17,10 +18,16 @@
   "author": "QuirinEcker",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@types/jest": "^25.2.3",
     "@types/node": "^14.0.10",
     "discord.js": "^12.2.0",
     "eris": "^0.13.1",
     "pg": "^8.2.1",
+=======
+    "ts-jest": "^26.1.0",
+>>>>>>> develop
     "tsc-watch": "^4.2.8",
     "typescript": "^3.9.3"
   },
