@@ -17,7 +17,6 @@ export class DataBase {
         return new Promise(async (resolve, reject) => {
             await client.connect();
             client.query(query, args,async(err, result) => {
-                console.log("is here")
                 if (err) reject(err)
                 else resolve(result)
                 await client.end();
