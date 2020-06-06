@@ -1,18 +1,25 @@
 import {ConfigRepository} from "./ConfigRepository";
-import {Client} from 'pg'
+import {Client, ClientConfig, QueryResult} from 'pg'
 
 export class DataBase {
     public static configRepository = new ConfigRepository();
-    private static host = 'postgres';
-    private static database = 'db';
-    private static user = 'app';
-    private static password ='app';
-    private static port = 5432;
-    public static client = new Client({
-        user: DataBase.user,
-        host: DataBase.host,
-        database: DataBase.database,
-        password: DataBase.password,
-        port: DataBase.port
-    });
+    private static config: ClientConfig = {
+        user: 'app',
+        host: 'localhost',
+        database: 'db',
+        password: 'app',
+        port: 5432
+    }
+
+    static async query(query: string, args: Array<string | number>): Promise<QueryResult> {
+        const client: Client = new Client(DataBase.config);
+
+        return new Promise(async (resolve, reject) => {
+            await client.query(query, args, (err, result) => {
+                if (err) reject(err)
+                else resolve(result)
+                client.end();
+            })
+        })
+    }
 }
