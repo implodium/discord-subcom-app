@@ -5,7 +5,10 @@ import {QueryResult} from "pg";
 
 export class ConfigRepository extends Repository<ServerConfig> {
     async delete(id: number): Promise<void> {
-        return Promise.resolve(undefined);
+        await DataBase.query(
+            'DELETE FROM config WHERE guildid = $1',
+            [id]
+        )
     }
 
     async insert(object: ServerConfig): Promise<number> {
