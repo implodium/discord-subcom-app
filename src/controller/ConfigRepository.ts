@@ -1,6 +1,7 @@
 import {Repository} from "./Repository";
 import {ServerConfig} from "../ServerConfig";
 import {DataBase} from "./DataBase";
+import {QueryResult} from "pg";
 
 export class ConfigRepository extends Repository<ServerConfig> {
     async delete(id: number): Promise<void> {
@@ -16,7 +17,15 @@ export class ConfigRepository extends Repository<ServerConfig> {
     }
 
     async get(id: number): Promise<ServerConfig> {
-        return Promise.resolve(new ServerConfig(1, ";"));
+        const result: QueryResult = await DataBase.query(
+            'SELECT * FROM config WHERE guildid = $1',
+            [id]
+        )
+
+        return new ServerConfig(
+            result.rows[0].guildid,
+            result.rows[0].prefix
+        )
     }
 
     async update(object: ServerConfig): Promise<number> {
