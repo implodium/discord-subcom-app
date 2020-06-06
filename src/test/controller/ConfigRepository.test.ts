@@ -22,9 +22,7 @@ test('update',  async (done) => {
         'SELECT prefix FROM config WHERE guildid = -1'
     )
 
-    expect(result.rows[0]).toBe({
-        prefix: '.'
-    })
+    expect(result.rows[0].prefix).toBe('.')
 
     done();
 })
