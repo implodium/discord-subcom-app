@@ -1,0 +1,1 @@
+insert into config(guildId, prefix) values (1, ';');
