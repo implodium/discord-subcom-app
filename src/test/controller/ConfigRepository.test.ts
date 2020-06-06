@@ -28,4 +28,13 @@ test('update',  async (done) => {
 })
 
 test('insert', async done => {
+    const serverConfig: ServerConfig = new ServerConfig(-2, '.');
+    await DataBase.configRepository.insert(serverConfig);
+    const result: QueryResult = await DataBase.query(
+        'SELECT prefix FROM config WHERE guildid = -2'
+    )
+
+    expect(result.rows[0].prefix).toBe('.')
+
+    done();
 })
