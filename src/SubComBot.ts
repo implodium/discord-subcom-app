@@ -36,7 +36,6 @@ export class SubComBot {
     }
 
     private async init(): Promise<void> {
-        await DataBase.queryFile('./sql/create.sql');
         this.bot.on('guildCreate', async guild => {
             await DataBase.configRepository.insert(new ServerConfig(parseInt(guild.id), '.'))
         })
