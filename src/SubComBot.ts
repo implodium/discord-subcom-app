@@ -4,6 +4,8 @@ import {Config} from "./Config";
 import {Echo} from "./commands/Echo";
 import {Command} from "./commands/Command";
 import {Settings} from "./commands/Settings";
+import {DataBase} from "./controller/DataBase";
+import {ServerConfig} from "./ServerConfig";
 
 export class SubComBot {
 
@@ -19,12 +21,12 @@ export class SubComBot {
         )
     }
 
-    run(): Promise<string> {
+    public run(): Promise<string> {
         return new Promise(async resolve => {
             await this.bot.connect()
             this.bot.on('ready', () => {
+                this.init()
                 resolve("connected");
-                this.init();
             })
         })
     }
@@ -33,7 +35,12 @@ export class SubComBot {
         return JSON.parse(readFileSync('./config/config.json', 'utf-8'));
     }
 
-    private init() {
+    private async init(): Promise<void> {
+        await DataBase.queryFile('./sql/create.sql');
+        this.bot.on('guildCreate', async guild => {
+            await DataBase.configRepository.insert(new ServerConfig(parseInt(guild.id), '.'))
+        })
+
         this.initializeCommands();
     }
 
