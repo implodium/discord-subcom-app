@@ -5,7 +5,7 @@ export class DataBase {
     public static configRepository = new ConfigRepository();
     private static config: ClientConfig = {
         user: 'app',
-        host: 'localhost',
+        host: 'postgres',
         database: 'db',
         password: 'app',
         port: 5432
