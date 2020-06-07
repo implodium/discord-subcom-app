@@ -6,15 +6,17 @@ import {ServerConfig} from "../ServerConfig";
 export class Settings extends Command {
 
     constructor() {
-        super('settings', 2, 3);
+        super('settings', 1, 2);
     }
 
     protected async run(msg: Message, args: Array<string>): Promise<void> {
         switch (args[0]) {
             case 'prefix':
+                if (args.length == 1) {
+                    await msg.channel.createMessage('**Prefix: **');
+                }
+                console.log(args.length)
                 const prefix = args[1];
-                const serverConfig: ServerConfig = await DataBase.configRepository.get(1);
-                console.log(serverConfig)
                 break;
             case 'role':
                 await msg.channel.createMessage('changing the access role (Not jet implemented)');
