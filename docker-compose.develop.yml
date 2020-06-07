@@ -7,10 +7,6 @@ services:
     build:
       context: .
       dockerfile: ./docker/typescript/develop.Dockerfile
-    ports:
-      - 9229:9229
-    volumes:
-    - ./:/usr/src/app
 
   postgres:
     image: postgres
