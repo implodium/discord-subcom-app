@@ -2,8 +2,8 @@ version: '3.7'
 
 services:
   jest:
-    image: discord-subcom-bot/typescript
-    container_name: discord-subcom-bot_typescript
+    image: discord-subcom-bot/jest
+    container_name: discord-subcom-bot_jest
     build:
       context: .
       dockerfile: ./docker/typescript/test.Dockerfile
