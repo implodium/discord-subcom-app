@@ -4,4 +4,5 @@ EXPOSE 9229
 COPY . .
 RUN npm install
 RUN npm run compile
-CMD ["npm", "run", "app"]
+# app-in-docker is necessary because of the jetbrains workdir overwrite
+CMD ["npm", "run", "app-in-docker"]
