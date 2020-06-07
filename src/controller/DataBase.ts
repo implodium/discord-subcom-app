@@ -1,5 +1,6 @@
 import {ConfigRepository} from "./ConfigRepository";
-import {Client, ClientConfig, QueryResult} from 'pg'
+import {Client, ClientConfig, QueryResult} from 'pg';
+import fs from 'fs';
 
 export class DataBase {
     public static configRepository = new ConfigRepository();
@@ -22,5 +23,11 @@ export class DataBase {
                 await client.end();
             })
         })
+    }
+
+    static async queryFile(fileName: string) : Promise<void> {
+        const fileContent: string = fs.readFileSync(fileName, {'encoding': "utf8"});
+
+        await DataBase.query(fileContent)
     }
 }
