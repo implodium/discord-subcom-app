@@ -6,6 +6,8 @@
   "scripts": {
     "docker-develop": "docker-compose -f docker-compose.develop.yml up -d --build",
     "docker-test": "docker-compose -f docker-compose.test.yml up -d --build",
+    "stop-docker-develop": "docker-compose -f docker-compose.develop.yml down",
+    "stop-docker-test": "docker-compose -f docker-compose.test.yml down",
     "app-in-docker": "node /usr/src/app/dist/index.js",
     "app": "node ./dist/index.js",
     "test": "jest --runInBand",
