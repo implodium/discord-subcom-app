@@ -1,5 +1,5 @@
 import {Command} from "./Command";
-import {CommandClient, Message, TextChannel} from "eris";
+import {Message, TextChannel} from "eris";
 import {DataBase} from "../controller/DataBase";
 import {ServerConfig} from "../ServerConfig";
 import {SubComBot} from "../SubComBot";
@@ -17,9 +17,9 @@ export class Settings extends Command {
                     const id: string = msg.channel.guild.id
                     const serverConfig: ServerConfig = await DataBase.configRepository.get(id);
 
-                    if (args.length == 1) {
+                    if (args.length === 1) {
                         await msg.channel.createMessage('**Prefix: **' + serverConfig.prefix);
-                    } else if (args.length == 2) {
+                    } else if (args.length === 2) {
                         const prefix = args[1];
                         await msg.channel.createMessage(`Prefix was changed from ${serverConfig.prefix} to ${prefix}`)
                         serverConfig.prefix = prefix;
@@ -32,6 +32,13 @@ export class Settings extends Command {
                 }
                 break;
             case 'role':
+                if (msg.channel instanceof TextChannel) {
+                    //const serverConfig: ServerConfig = await DataBase.configRepository.get(msg.channel.guild.id);
+
+                    if (args.length === 1) {
+
+                    }
+                }
                 await msg.channel.createMessage('changing the access role (Not jet implemented)');
                 break;
             default:
