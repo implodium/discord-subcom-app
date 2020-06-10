@@ -11,7 +11,7 @@ export class ConfigRepository extends Repository<ServerConfig> {
         )
     }
 
-    async insert(object: ServerConfig): Promise<number> {
+    async insert(object: ServerConfig): Promise<string> {
         await DataBase.query(
             'INSERT INTO config (guildid, prefix) VALUES ($1, $2)',
             [object.guildId, object.prefix]

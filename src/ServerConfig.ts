@@ -1,8 +1,8 @@
 export class ServerConfig {
     public prefix: string;
-    public guildId: number;
+    public guildId: string;
 
-    constructor(guildId: number, prefix: string) {
+    constructor(guildId: string, prefix: string) {
         this.guildId = guildId;
         this.prefix = prefix;
     }

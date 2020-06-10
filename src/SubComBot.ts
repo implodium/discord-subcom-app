@@ -11,6 +11,7 @@ export class SubComBot {
 
     private config: Config;
     public bot: CommandClient;
+    public static instance: SubComBot;
 
     constructor() {
         this.config = this.readConfig();
@@ -19,6 +20,8 @@ export class SubComBot {
             {},
             {prefix: this.config.prefix}
         )
+
+        SubComBot.instance = this;
     }
 
     public run(): Promise<string> {
@@ -37,7 +40,7 @@ export class SubComBot {
 
     private async init(): Promise<void> {
         this.bot.on('guildCreate', async guild => {
-            await DataBase.configRepository.insert(new ServerConfig(parseInt(guild.id), '.'))
+            await DataBase.configRepository.insert(new ServerConfig(guild.id, '.'))
         })
 
         this.initializeCommands();

@@ -12,7 +12,7 @@ beforeEach(async(done) => {
 })
 
 test('update',  async (done) => {
-    const serverConfig: ServerConfig = new ServerConfig(-1, '.');
+    const serverConfig: ServerConfig = new ServerConfig('-1', '.');
 
     await DataBase.configRepository.update(serverConfig);
     const result: QueryResult = await DataBase.query(
@@ -25,7 +25,7 @@ test('update',  async (done) => {
 })
 
 test('insert', async done => {
-    const serverConfig: ServerConfig = new ServerConfig(-2, '.');
+    const serverConfig: ServerConfig = new ServerConfig('-2', '.');
     await DataBase.configRepository.insert(serverConfig);
     const result: QueryResult = await DataBase.query(
         'SELECT prefix FROM config WHERE guildid = -2'
