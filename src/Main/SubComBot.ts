@@ -1,6 +1,6 @@
 import {CommandClient} from "eris";
 import {readFileSync} from 'fs';
-import {Config} from "./Config";
+import {Config} from "./model/Config";
 import {Echo} from "./commands/Echo";
 import {Command} from "./commands/Command";
 import {Settings} from "./commands/Settings";
