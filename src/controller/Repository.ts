@@ -2,5 +2,5 @@ export abstract class Repository<T> {
     abstract async update(object: T): Promise<number>;
     abstract async delete(id: number): Promise<void>;
     abstract async insert(object: T): Promise<string>;
-    abstract async get(id: number): Promise<T>;
+    abstract async get(id: string): Promise<T>;
 }

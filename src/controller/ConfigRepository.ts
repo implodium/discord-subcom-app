@@ -19,7 +19,7 @@ export class ConfigRepository extends Repository<ServerConfig> {
         return object.guildId;
     }
 
-    async get(id: number): Promise<ServerConfig> {
+    async get(id: string): Promise<ServerConfig> {
         const result: QueryResult = await DataBase.query(
             'SELECT * FROM config WHERE guildid = $1',
             [id]
