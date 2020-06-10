@@ -1,5 +1,5 @@
-import {DataBase} from "../../controller/DataBase";
-import {ServerConfig} from "../../ServerConfig";
+import {DataBase} from "../../Main/controller/DataBase";
+import {ServerConfig} from "../../Main/ServerConfig";
 import {QueryResult} from "pg";
 
 jest.setTimeout(30000);
