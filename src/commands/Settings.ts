@@ -18,7 +18,7 @@ export class Settings extends Command {
                         const serverConfig: ServerConfig = await DataBase.configRepository.get(id);
                         await msg.channel.createMessage('**Prefix: **' + serverConfig.prefix);
                     } else {
-                        throw new Error("This feature is only supported on text channels")
+                        throw new Error("This feature is only supported in text channels")
                     }
                 }
                 break;
