@@ -3,7 +3,7 @@ import {ServerConfig} from "../ServerConfig";
 import {DataBase} from "./DataBase";
 import {QueryResult} from "pg";
 
-export class ConfigRepository extends Repository<ServerConfig> {
+export class GuildConfigRepository extends Repository<ServerConfig> {
     async delete(id: number): Promise<void> {
         await DataBase.query(
             'DELETE FROM guild_config WHERE guildid = $1',

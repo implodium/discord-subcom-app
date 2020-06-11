@@ -1,9 +1,9 @@
-import {ConfigRepository} from "./ConfigRepository";
+import {GuildConfigRepository} from "./GuildConfigRepository";
 import {Client, ClientConfig, QueryResult} from 'pg';
 import fs from 'fs';
 
 export class DataBase {
-    public static configRepository = new ConfigRepository();
+    public static configRepository = new GuildConfigRepository();
     private static config: ClientConfig = {
         user: 'app',
         host: 'postgres',
