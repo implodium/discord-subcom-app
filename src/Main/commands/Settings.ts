@@ -1,7 +1,7 @@
 import {Command} from "./Command";
 import {Message, TextChannel} from "eris";
 import {DataBase} from "../controller/DataBase";
-import {ServerConfig} from "../ServerConfig";
+import {GuildConfig} from "../model/GuildConfig";
 import {SubComBot} from "../SubComBot";
 
 export class Settings extends Command {
@@ -15,7 +15,7 @@ export class Settings extends Command {
             case 'prefix':
                 if (msg.channel instanceof TextChannel) {
                     const id: string = msg.channel.guild.id
-                    const serverConfig: ServerConfig = await DataBase.configRepository.get(id);
+                    const serverConfig: GuildConfig = await DataBase.configRepository.get(id);
 
                     if (args.length === 1) {
                         await msg.channel.createMessage('**Prefix: **' + serverConfig.prefix);
@@ -33,7 +33,7 @@ export class Settings extends Command {
                 break;
             case 'role':
                 if (msg.channel instanceof TextChannel) {
-                    //const serverConfig: ServerConfig = await DataBase.configRepository.get(msg.channel.guild.id);
+                    //const serverConfig: GuildConfig = await DataBase.configRepository.get(msg.channel.guild.id);
 
                     if (args.length === 1) {
 

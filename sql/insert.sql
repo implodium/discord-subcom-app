@@ -1,1 +1,1 @@
-insert into config(guildId, prefix) values (-1, ';');
+insert into guild_config(guildId, prefix) values (-1, ';');

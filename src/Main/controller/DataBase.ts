@@ -6,10 +6,10 @@ export class DataBase {
     public static configRepository = new GuildConfigRepository();
     private static config: ClientConfig = {
         user: 'app',
-        host: 'postgres',
-        database: 'db',
+        host: 'localhost',
+        database: 'db_test',
         password: 'app',
-        port: 5432
+        port: 5464
     }
 
     static async query(query: string, args: Array<string | number> = []): Promise<QueryResult> {
