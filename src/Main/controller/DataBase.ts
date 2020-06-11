@@ -1,9 +1,11 @@
 import {GuildConfigRepository} from "./GuildConfigRepository";
 import {Client, ClientConfig, QueryResult} from 'pg';
 import fs from 'fs';
+import {PermissionRepository} from "./PermissionRepository";
 
 export class DataBase {
     public static configRepository = new GuildConfigRepository();
+    public static permissionRepository = new PermissionRepository();
     private static config: ClientConfig = {
         user: 'app',
         host: 'localhost',
