@@ -4,7 +4,7 @@ import fs from 'fs';
 import {PermissionRepository} from "./PermissionRepository";
 
 export class DataBase {
-    public static configRepository = new GuildConfigRepository();
+    public static guildConfigRepository = new GuildConfigRepository();
     public static permissionRepository = new PermissionRepository();
     private static config: ClientConfig = {
         user: 'app',

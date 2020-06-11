@@ -14,7 +14,7 @@ beforeEach(async(done) => {
 test('update',  async (done) => {
     const serverConfig: GuildConfig = new GuildConfig('-1', '.');
 
-    await DataBase.configRepository.update(serverConfig);
+    await DataBase.guildConfigRepository.update(serverConfig);
     const result: QueryResult = await DataBase.query(
         "SELECT prefix FROM guild_config WHERE guildid = '-1'"
     )
@@ -26,7 +26,7 @@ test('update',  async (done) => {
 
 test('insert', async done => {
     const serverConfig: GuildConfig = new GuildConfig('-2', '.');
-    await DataBase.configRepository.insert(serverConfig);
+    await DataBase.guildConfigRepository.insert(serverConfig);
     const result: QueryResult = await DataBase.query(
         "SELECT prefix FROM guild_config WHERE guildid = '-2'"
     )
@@ -37,7 +37,7 @@ test('insert', async done => {
 })
 
 test('get', async done => {
-    const serverConfig: GuildConfig = await DataBase.configRepository.get('-1');
+    const serverConfig: GuildConfig = await DataBase.guildConfigRepository.get('-1');
     expect(serverConfig).toBeInstanceOf(GuildConfig);
     expect(serverConfig.prefix).toBe(';')
     expect(serverConfig.guildId).toBe('-1')
@@ -45,7 +45,7 @@ test('get', async done => {
 })
 
 test('delete', async done => {
-    await DataBase.configRepository.delete(-1);
+    await DataBase.guildConfigRepository.delete(-1);
 
     const result: QueryResult = await DataBase.query(
         "SELECT * FROM guild_config WHERE guildid = '-1'"

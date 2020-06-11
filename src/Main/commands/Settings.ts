@@ -15,7 +15,7 @@ export class Settings extends Command {
             case 'prefix':
                 if (msg.channel instanceof TextChannel) {
                     const id: string = msg.channel.guild.id
-                    const serverConfig: GuildConfig = await DataBase.configRepository.get(id);
+                    const serverConfig: GuildConfig = await DataBase.guildConfigRepository.get(id);
 
                     if (args.length === 1) {
                         await msg.channel.createMessage('**Prefix: **' + serverConfig.prefix);
@@ -24,7 +24,7 @@ export class Settings extends Command {
                         await msg.channel.createMessage(`Prefix was changed from ${serverConfig.prefix} to ${prefix}`)
                         serverConfig.prefix = prefix;
                         console.log(serverConfig)
-                        await DataBase.configRepository.update(serverConfig)
+                        await DataBase.guildConfigRepository.update(serverConfig)
                         SubComBot.instance.bot.registerGuildPrefix(serverConfig.guildId, `${serverConfig.prefix}subcom `);
                     }
                 } else {
