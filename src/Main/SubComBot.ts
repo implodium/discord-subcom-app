@@ -1,6 +1,6 @@
 import {CommandClient} from "eris";
 import {readFileSync} from 'fs';
-import {Config} from "./Config";
+import {GuildConfig} from "./model/GuildConfig";
 import {Echo} from "./commands/Echo";
 import {Command} from "./commands/Command";
 import {Settings} from "./commands/Settings";
@@ -9,7 +9,7 @@ import {ServerConfig} from "./ServerConfig";
 
 export class SubComBot {
 
-    private config: Config;
+    private config: GuildConfig;
     public bot: CommandClient;
     public static instance: SubComBot;
 
@@ -34,7 +34,7 @@ export class SubComBot {
         })
     }
 
-    readConfig(): Config {
+    readConfig(): GuildConfig {
         return JSON.parse(readFileSync('./config/config.json', 'utf-8'));
     }
 

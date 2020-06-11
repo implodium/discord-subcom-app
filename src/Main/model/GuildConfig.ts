@@ -1,4 +1,4 @@
-export interface Config {
+export interface GuildConfig {
     token: string,
     maintainer: string,
     prefix: string
