@@ -10,19 +10,23 @@ export class PermissionRepository extends Repository<Permission>{
 
     async get(roleId: string): Promise<Permission> {
         const result: QueryResult = await DataBase.query(
-            'SELECT roleid, count FROM PERMISSION WHERE roleid = $1',
+            'SELECT * FROM PERMISSION WHERE roleid = $1',
             [roleId]
         );
 
         if (result.rows.length === 1) {
-            return new Permission(result.rows[0].roleid, result.rows[0].count);
+            return new Permission(
+                result.rows[0].roleid,
+                result.rows[0].count,
+                await DataBase.guildConfigRepository.get(result.rows[0].guildid)
+            );
         }
 
         return new Promise(() => null);
     }
 
     async insert(object: Permission): Promise<string> {
-        return Promise.resolve("");
+        return object.roleId;
     }
 
     async update(object: Permission): Promise<number> {
@@ -37,10 +41,16 @@ export class PermissionRepository extends Repository<Permission>{
             [guildConfigId]
         );
 
-        result.rows.forEach(row => {
-            const permission: Permission = new Permission(row.roleid, row.count)
+        for (const row of result.rows) {
+
+            const permission: Permission = new Permission(
+                row.roleid,
+                row.count,
+                await DataBase.guildConfigRepository.get(row.guildid)
+            );
+
             permissions.set(permission.roleId, permission);
-        })
+        }
 
         return permissions
 
