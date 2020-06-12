@@ -9,7 +9,16 @@ export class PermissionRepository extends Repository<Permission>{
     }
 
     async get(roleId: string): Promise<Permission> {
-        return new Promise(() => new Permission('', 3));
+        const result: QueryResult = await DataBase.query(
+            'SELECT roleid, count FROM PERMISSION WHERE roleid = $1',
+            [roleId]
+        );
+
+        if (result.rows.length === 1) {
+            return new Permission(result.rows[0].roleid, result.rows[0].count);
+        }
+
+        return new Promise(() => null);
     }
 
     async insert(object: Permission): Promise<string> {

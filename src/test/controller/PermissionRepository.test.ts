@@ -19,3 +19,13 @@ test('get all', async done => {
 
     done();
 })
+
+test('get', async done => {
+    const permission1: Permission = await DataBase.permissionRepository.get('-1');
+    expect(permission1.roleId).toBe('-1');
+    expect(permission1.count).toBe(1);
+    const permission2: Permission = await DataBase.permissionRepository.get('-2');
+    expect(permission2.roleId).toBe('-2');
+    expect(permission2.count).toBe(2);
+    done();
+})
