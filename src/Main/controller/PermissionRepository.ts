@@ -35,7 +35,12 @@ export class PermissionRepository extends Repository<Permission>{
     }
 
     async update(object: Permission): Promise<number> {
-        return Promise.resolve(0);
+        const result: QueryResult = await DataBase.query(
+            "UPDATE permission SET count = $1, guildid = $2 WHERE roleid = $3",
+            [object.count, object.guildConfig.guildId, object.roleId]
+        )
+
+        return result.rowCount;
     }
 
     async getAll(guildConfigId: string): Promise<Map<string, Permission>> {
