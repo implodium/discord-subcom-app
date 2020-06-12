@@ -26,6 +26,11 @@ export class PermissionRepository extends Repository<Permission>{
     }
 
     async insert(object: Permission): Promise<string> {
+        await DataBase.query(
+            "INSERT INTO permission (roleid, count, guildid) VALUES ($1, $2, $3)",
+            [object.roleId, object.count, object.guildConfig.guildId]
+        )
+
         return object.roleId;
     }
 
