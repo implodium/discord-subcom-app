@@ -23,7 +23,6 @@ export class Settings extends Command {
                         const prefix = args[1];
                         await msg.channel.createMessage(`Prefix was changed from ${serverConfig.prefix} to ${prefix}`)
                         serverConfig.prefix = prefix;
-                        console.log(serverConfig)
                         await DataBase.guildConfigRepository.update(serverConfig)
                         SubComBot.instance.bot.registerGuildPrefix(serverConfig.guildId, `${serverConfig.prefix}subcom `);
                     }
