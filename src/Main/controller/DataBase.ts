@@ -9,9 +9,9 @@ export class DataBase {
     private static config: ClientConfig = {
         user: 'app',
         host: 'localhost',
-        database: 'db_test',
+        database: 'db',
         password: 'app',
-        port: 5464
+        port: 5432
     }
 
     static async query(query: string, args: Array<string | number> = []): Promise<QueryResult> {
