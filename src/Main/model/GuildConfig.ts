@@ -1,7 +1,7 @@
 import {Permission} from "./Permission";
 
 export class GuildConfig {
-    public readonly prefix: string;
+    public prefix: string;
     public readonly guildId: string;
     public readonly permissions: Array<Permission>;
 
