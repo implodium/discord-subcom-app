@@ -1,9 +1,13 @@
-export class Permission {
-    public roleId: string;
-    public count: number;
+import {GuildConfig} from "./GuildConfig";
 
-    constructor(roleId: string, count: number) {
+export class Permission {
+    public readonly roleId: string;
+    public readonly count: number;
+    public readonly guildConfig: GuildConfig;
+
+    constructor(roleId: string, count: number, guildConfig: GuildConfig) {
         this.roleId = roleId;
         this.count = count;
+        this.guildConfig = guildConfig;
     }
 }
