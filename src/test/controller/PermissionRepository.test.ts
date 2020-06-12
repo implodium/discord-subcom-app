@@ -48,3 +48,21 @@ test('insert', async done => {
     expect(result.rows[0].count).toBe(3);
     done();
 })
+
+test('update', async done => {
+    await DataBase.permissionRepository.update(new Permission(
+        '-1',
+        1,
+        new GuildConfig('-1', ';')
+    ))
+
+    const result: QueryResult = await DataBase.query(
+        "SELECT * FROM permission WHERE roleid = $1",
+        [-1]
+    )
+
+    expect(result.rows[0].count).toBe(1);
+    expect(result.rows[0].roleid).toBe('-1');
+    expect(result.rows[0].guildid).toBe('-1');
+    done();
+})
