@@ -67,6 +67,13 @@ export class Settings extends Command {
                                     throw new Error("Invalid number of arguments")
                                 }
                                 break;
+                            case 'delete':
+                                if (args.length === 3) {
+                                    const id: string = args[2].replace(/[^0-9]/g, '');
+
+                                    await DataBase.permissionRepository.delete(id);
+                                    guildConfig.permissions.delete(id)
+                                }
                         }
                     }
                 }
