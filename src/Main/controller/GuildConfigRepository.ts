@@ -4,7 +4,7 @@ import {DataBase} from "./DataBase";
 import {QueryResult} from "pg";
 
 export class GuildConfigRepository extends Repository<GuildConfig> {
-    async delete(id: number): Promise<void> {
+    async delete(id: string): Promise<void> {
         await DataBase.query(
             'DELETE FROM guild_config WHERE guildid = $1',
             [id]

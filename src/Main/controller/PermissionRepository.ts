@@ -4,8 +4,11 @@ import {DataBase} from "./DataBase";
 import {QueryResult} from "pg";
 
 export class PermissionRepository extends Repository<Permission>{
-    async delete(id: number): Promise<void> {
-        return Promise.resolve(undefined);
+    async delete(roleId: string): Promise<void> {
+        await DataBase.query(
+            "DELETE FROM permission WHERE roleid = $1",
+            [roleId]
+        );
     }
 
     async get(roleId: string): Promise<Permission> {

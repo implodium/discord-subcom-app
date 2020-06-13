@@ -45,7 +45,7 @@ test('get', async done => {
 })
 
 test('delete', async done => {
-    await DataBase.guildConfigRepository.delete(-1);
+    await DataBase.guildConfigRepository.delete('-1');
 
     const result: QueryResult = await DataBase.query(
         "SELECT * FROM guild_config WHERE guildid = '-1'"
