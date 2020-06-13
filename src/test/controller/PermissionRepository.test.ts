@@ -66,3 +66,14 @@ test('update', async done => {
     expect(result.rows[0].guildid).toBe('-1');
     done();
 })
+
+test('delete', async done => {
+    await DataBase.permissionRepository.delete('-1');
+
+    const result: QueryResult = await DataBase.query(
+        "SELECT * FROM permission WHERE roleid = '-1'"
+    );
+
+    expect(result.rows.length).toBe(0);
+    done();
+})
