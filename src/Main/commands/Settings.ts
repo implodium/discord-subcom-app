@@ -3,11 +3,12 @@ import {Message, TextChannel} from "eris";
 import {DataBase} from "../controller/DataBase";
 import {GuildConfig} from "../model/GuildConfig";
 import {SubComBot} from "../SubComBot";
+import {Permission} from "../model/Permission";
 
 export class Settings extends Command {
 
     constructor() {
-        super('settings', 1, 2);
+        super('settings', 1, 4);
     }
 
     protected async run(msg: Message, args: Array<string>): Promise<void> {
@@ -45,6 +46,27 @@ export class Settings extends Command {
                                 text += `- Role <@&${permission.roleId}> is permitted to create ${permission.count} SubCommunities \n`;
                                 await msg.channel.createMessage(text);
                             }
+                        }
+                    } else if (args.length > 1) {
+                        switch (args[1]) {
+                            case 'set':
+                                if (args.length === 4) {
+                                    const permission: Permission = new Permission(
+                                        args[2].replace(/[^0-9]/g, ''),
+                                        parseInt(args[3]),
+                                        guildConfig
+                                    );
+
+                                    if (guildConfig.permissions.get(permission.roleId) === undefined) {
+                                        await DataBase.permissionRepository.insert(permission)
+                                    } else {
+                                        await DataBase.permissionRepository.update(permission)
+                                    }
+                                    guildConfig.permissions.set(permission.roleId, permission);
+                                } else {
+                                    throw new Error("Invalid number of arguments")
+                                }
+                                break;
                         }
                     }
                 }
