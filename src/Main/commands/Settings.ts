@@ -64,6 +64,9 @@ export class Settings extends Command {
                                         await DataBase.permissionRepository.update(permission)
                                     }
                                     guildConfig.permissions.set(permission.roleId, permission);
+                                    await msg.channel.createMessage(
+                                        `Role <@&${permission.roleId}> can now create 5 SubCommunities`
+                                    );
                                 } else {
                                     throw new Error("Invalid number of arguments")
                                 }
@@ -74,14 +77,17 @@ export class Settings extends Command {
 
                                     await DataBase.permissionRepository.delete(id);
                                     guildConfig.permissions.delete(id)
-                                }
+                                } else throw new Error("Invalid number of arguments")
+                                break;
+                            default:
+                                throw new Error("Invalid Operation")
                         }
                     }
                 }
                 break;
             default:
-                throw Error("Invalid Settings Property")
+                throw new Error("Invalid Settings Property")
+
         }
     }
-
 }
