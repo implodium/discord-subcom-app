@@ -44,8 +44,9 @@ export class Settings extends Command {
 
                             for (let permission of guildConfig.permissions.values()) {
                                 text += `- Role <@&${permission.roleId}> is permitted to create ${permission.count} SubCommunities \n`;
-                                await msg.channel.createMessage(text);
                             }
+
+                            await msg.channel.createMessage(text);
                         }
                     } else if (args.length > 1) {
                         switch (args[1]) {
