@@ -32,13 +32,22 @@ export class Settings extends Command {
                 break;
             case 'role':
                 if (msg.channel instanceof TextChannel) {
-                    //const serverConfig: GuildConfig = await DataBase.configRepository.get(msg.channel.guild.id);
+                    const guildConfig: GuildConfig = await DataBase.guildConfigRepository.get(msg.channel.guild.id);
+                    guildConfig.permissions = await DataBase.permissionRepository.getAll(guildConfig.guildId);
 
                     if (args.length === 1) {
+                        if (guildConfig.permissions.size === 0) {
+                            await msg.channel.createMessage("no permissions set");
+                        } else {
+                            let text: string = "**Permissions: ** \n";
 
+                            for (let permission of guildConfig.permissions.values()) {
+                                text += `- Role <@&${permission.roleId}> is permitted to create ${permission.count} SubCommunities \n`;
+                                await msg.channel.createMessage(text);
+                            }
+                        }
                     }
                 }
-                await msg.channel.createMessage('changing the access role (Not jet implemented)');
                 break;
             default:
                 throw Error("Invalid Settings Property")
