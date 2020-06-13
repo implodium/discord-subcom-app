@@ -13,12 +13,12 @@ export abstract class Command {
     }
 
 
-    public execute(msg: Message, args: Array<string>) {
+    public async execute(msg: Message, args: Array<string>) {
         try {
-            if (this.argsAreValid(args)) this.run(msg, args);
+            if (this.argsAreValid(args)) await this.run(msg, args);
             else throw new Error('Invalid Arguments')
         } catch (e) {
-            msg.channel.createMessage(e.message)
+            await msg.channel.createMessage(e.message)
         }
     }
 
