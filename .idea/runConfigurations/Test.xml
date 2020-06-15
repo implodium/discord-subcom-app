@@ -7,7 +7,7 @@
     <envs>
       <env name="PGUSER" value="app" />
       <env name="PGPASSWORD" value="app" />
-      <env name="PGDATABASE" value="db_test" />
+      <env name="PGDATABASE" value="db" />
       <env name="PGPORT" value="5434" />
       <env name="PGHOST" value="localhost" />
     </envs>
