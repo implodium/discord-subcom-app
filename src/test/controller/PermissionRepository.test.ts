@@ -5,6 +5,7 @@ import {GuildConfig} from "../../Main/model/GuildConfig";
 
 beforeEach(async(done) => {
     await DataBase.queryFile('./sql/drop.sql')
+        .catch()
     await DataBase.queryFile('./sql/create.sql')
     await DataBase.queryFile('./sql/insert.sql')
     done();
