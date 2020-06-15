@@ -15,5 +15,3 @@ services:
       POSTGRES_DB: db
     volumes:
     - ./db/:/var/lib/postgresql/data
-    ports:
-    - 1060:5432
