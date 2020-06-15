@@ -1,21 +1,14 @@
 import {GuildConfigRepository} from "./GuildConfigRepository";
-import {Client, ClientConfig, QueryResult} from 'pg';
+import {Client, QueryResult} from 'pg';
 import fs from 'fs';
 import {PermissionRepository} from "./PermissionRepository";
 
 export class DataBase {
     public static guildConfigRepository = new GuildConfigRepository();
     public static permissionRepository = new PermissionRepository();
-    private static config: ClientConfig = {
-        user: 'app',
-        host: 'localhost',
-        database: 'db',
-        password: 'app',
-        port: 5432
-    }
 
     static async query(query: string, args: Array<string | number> = []): Promise<QueryResult> {
-        const client: Client = new Client(DataBase.config);
+        const client: Client = new Client();
 
         return new Promise(async (resolve, reject) => {
             await client.connect();
