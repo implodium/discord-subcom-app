@@ -1,5 +1,5 @@
-import {DataBase} from "../../controller/DataBase";
-import {ServerConfig} from "../../ServerConfig";
+import {DataBase} from "../../Main/controller/DataBase";
+import {GuildConfig} from "../../Main/model/GuildConfig";
 import {QueryResult} from "pg";
 
 jest.setTimeout(30000);
@@ -12,11 +12,11 @@ beforeEach(async(done) => {
 })
 
 test('update',  async (done) => {
-    const serverConfig: ServerConfig = new ServerConfig(-1, '.');
+    const serverConfig: GuildConfig = new GuildConfig('-1', '.');
 
-    await DataBase.configRepository.update(serverConfig);
+    await DataBase.guildConfigRepository.update(serverConfig);
     const result: QueryResult = await DataBase.query(
-        'SELECT prefix FROM config WHERE guildid = -1'
+        "SELECT prefix FROM guild_config WHERE guildid = '-1'"
     )
 
     expect(result.rows[0].prefix).toBe('.')
@@ -25,10 +25,10 @@ test('update',  async (done) => {
 })
 
 test('insert', async done => {
-    const serverConfig: ServerConfig = new ServerConfig(-2, '.');
-    await DataBase.configRepository.insert(serverConfig);
+    const serverConfig: GuildConfig = new GuildConfig('-2', '.');
+    await DataBase.guildConfigRepository.insert(serverConfig);
     const result: QueryResult = await DataBase.query(
-        'SELECT prefix FROM config WHERE guildid = -2'
+        "SELECT prefix FROM guild_config WHERE guildid = '-2'"
     )
 
     expect(result.rows[0].prefix).toBe('.')
@@ -37,18 +37,18 @@ test('insert', async done => {
 })
 
 test('get', async done => {
-    const serverConfig: ServerConfig = await DataBase.configRepository.get(-1);
-    expect(serverConfig).toBeInstanceOf(ServerConfig);
+    const serverConfig: GuildConfig = await DataBase.guildConfigRepository.get('-1');
+    expect(serverConfig).toBeInstanceOf(GuildConfig);
     expect(serverConfig.prefix).toBe(';')
     expect(serverConfig.guildId).toBe('-1')
     done();
 })
 
 test('delete', async done => {
-    await DataBase.configRepository.delete(-1);
+    await DataBase.guildConfigRepository.delete('-1');
 
     const result: QueryResult = await DataBase.query(
-        'SELECT * FROM config WHERE guildid = -1'
+        "SELECT * FROM guild_config WHERE guildid = '-1'"
     );
 
     expect(result.rows.length).toBe(0);

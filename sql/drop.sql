@@ -1,1 +1,2 @@
-DROP TABLE config;
+DROP TABLE permission;
+DROP TABLE guild_config;

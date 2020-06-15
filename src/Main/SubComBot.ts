@@ -1,16 +1,17 @@
 import {CommandClient} from "eris";
 import {readFileSync} from 'fs';
-import {Config} from "./Config";
+import {ConfigInterface} from "./ConfigInterface";
 import {Echo} from "./commands/Echo";
 import {Command} from "./commands/Command";
 import {Settings} from "./commands/Settings";
 import {DataBase} from "./controller/DataBase";
-import {ServerConfig} from "./ServerConfig";
+import {GuildConfig} from "./model/GuildConfig";
 
 export class SubComBot {
 
-    private config: Config;
+    private config: ConfigInterface;
     public bot: CommandClient;
+    public static instance: SubComBot;
 
     constructor() {
         this.config = this.readConfig();
@@ -19,6 +20,8 @@ export class SubComBot {
             {},
             {prefix: this.config.prefix}
         )
+
+        SubComBot.instance = this;
     }
 
     public run(): Promise<string> {
@@ -31,13 +34,13 @@ export class SubComBot {
         })
     }
 
-    readConfig(): Config {
+    readConfig(): ConfigInterface {
         return JSON.parse(readFileSync('./config/config.json', 'utf-8'));
     }
 
     private async init(): Promise<void> {
         this.bot.on('guildCreate', async guild => {
-            await DataBase.configRepository.insert(new ServerConfig(parseInt(guild.id), '.'))
+            await DataBase.guildConfigRepository.insert(new GuildConfig(guild.id, '.'))
         })
 
         this.initializeCommands();

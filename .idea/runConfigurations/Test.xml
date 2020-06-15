@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Test" type="JavaScriptTestRunnerJest">
+    <node-interpreter value="project" />
+    <node-options value="" />
+    <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+    <working-dir value="$PROJECT_DIR$" />
+    <envs>
+      <env name="PGUSER" value="app" />
+      <env name="PGPASSWORD" value="app" />
+      <env name="PGDATABASE" value="db_test" />
+      <env name="PGPORT" value="5464" />
+      <env name="PGHOST" value="localhost" />
+    </envs>
+    <scope-kind value="ALL" />
+    <method v="2" />
+  </configuration>
+</component>
