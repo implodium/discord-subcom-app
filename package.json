@@ -5,7 +5,8 @@
   "main": "src/Main/index.ts",
   "scripts": {
     "deploy": "docker-compose up -d",
-    "compile": "tsc"
+    "compile": "tsc",
+    "app-in-docker": "PGUSER=app PGPASSWORD=app PGDATABASE=db PGHOST=postgres node ./dist/Main/index.js"
   },
   "keywords": [
     "node",

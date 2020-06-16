@@ -1,6 +1,6 @@
 FROM node:alpine
 WORKDIR . .
-CMD ["node", "./dist/Main"]
+CMD ["npm", "run", "app-in-docker"]
 COPY package*.json ./
 RUN npm install
 COPY . .
