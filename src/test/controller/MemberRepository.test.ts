@@ -4,6 +4,7 @@ import {Member} from "../../Main/model/Member";
 
 beforeEach(async done => {
     await DataBase.queryFile('./sql/drop.sql')
+        .catch()
     await DataBase.queryFile('./sql/create.sql')
     await DataBase.queryFile('./sql/insert.sql')
     done();
