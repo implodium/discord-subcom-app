@@ -6,6 +6,7 @@ jest.setTimeout(30000);
 
 beforeEach(async(done) => {
     await DataBase.queryFile('./sql/drop.sql')
+        .catch(console.log)
     await DataBase.queryFile('./sql/create.sql')
     await DataBase.queryFile('./sql/insert.sql')
     done();
