@@ -7,7 +7,7 @@ export class MemberRepository extends Repository<Member>{
     }
 
     async get(id: string): Promise<Member> {
-        return Promise.resolve(new Member())
+        return Promise.resolve(new Member('x', 5));
     }
 
     async insert(object: Member): Promise<string> {
