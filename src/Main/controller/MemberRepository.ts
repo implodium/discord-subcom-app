@@ -1,5 +1,6 @@
 import {Repository} from "./Repository";
 import {Member} from "../model/Member";
+import {DataBase} from "./DataBase";
 
 export class MemberRepository extends Repository<Member>{
     async delete(id: string): Promise<void> {
@@ -11,7 +12,12 @@ export class MemberRepository extends Repository<Member>{
     }
 
     async insert(object: Member): Promise<string> {
-        return Promise.resolve("");
+        await DataBase.query(
+            'INSERT INTO member (id, count) VALUES ($1, $2)',
+            [object.id, object.count]
+        );
+
+        return object.id
     }
 
     async update(object: Member): Promise<number> {
