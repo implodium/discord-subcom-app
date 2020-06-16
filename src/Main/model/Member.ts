@@ -1,9 +1,9 @@
 export class Member {
     public readonly id: string;
-    public countLeft: number;
+    public count: number;
 
-    constructor(id: string, countLeft: number) {
+    constructor(id: string, count: number) {
         this.id = id;
-        this.countLeft = countLeft;
+        this.count = count;
     }
 }
