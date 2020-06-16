@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  postgres-dev:
+    image: postgres
+    container_name: discord-subcom-bot_postgres
+    environment:
+      POSTGRES_PASSWORD: app
+      POSTGRES_USER: app
+      POSTGRES_DB: db
+    volumes:
+      - ./db_dev/:/var/lib/postgresql/data
+    ports:
+    - 5432:5432
+  postgres-test:
+    image: postgres
+    container_name: discord-subcom-bot_postgres-test
+    environment:
+      POSTGRES_PASSWORD: app
+      POSTGRES_USER: app
+      POSTGRES_DB: db
+    ports:
+    - 5434:5432
