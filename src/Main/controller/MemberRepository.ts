@@ -12,7 +12,15 @@ export class MemberRepository extends Repository<Member>{
     }
 
     async get(id: string): Promise<Member> {
-        return Promise.resolve(new Member('x', 5));
+        const result: QueryResult = await DataBase.query(
+            "SELECT * FROM member WHERE id = $1",
+            [id]
+        )
+
+        return new Member(
+            result.rows[0].id,
+            result.rows[0].count
+        )
     }
 
     async insert(object: Member): Promise<string> {
