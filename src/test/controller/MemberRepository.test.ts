@@ -36,3 +36,20 @@ test('delete', async done => {
     expect(result.rows.length).toBe(0);
     done();
 })
+
+test('update', async done => {
+    await DataBase.memberRepository.update(new Member(
+        '-1',
+        5
+    ));
+
+    const result: QueryResult = await DataBase.query(
+        "SELECT * FROM member WHERE id = $1",
+        ['-1']
+    );
+
+    expect(result.rows[0].count).toBe(5);
+    expect(result.rows[1].id).toBe('-1');
+
+    done();
+})
