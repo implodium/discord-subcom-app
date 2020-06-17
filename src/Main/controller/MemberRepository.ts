@@ -4,7 +4,10 @@ import {DataBase} from "./DataBase";
 
 export class MemberRepository extends Repository<Member>{
     async delete(id: string): Promise<void> {
-        return Promise.resolve(undefined);
+        await DataBase.query(
+            "DELETE FROM member WHERE id = $1",
+            [id]
+        )
     }
 
     async get(id: string): Promise<Member> {
