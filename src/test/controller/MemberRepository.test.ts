@@ -30,7 +30,7 @@ test('delete', async done => {
     await DataBase.memberRepository.delete('-1');
 
     const result: QueryResult = await DataBase.query(
-        "SELECT * FROM guild_config WHERE guildid = '-1'"
+        "SELECT * FROM member WHERE id = '-1'"
     );
 
     expect(result.rows.length).toBe(0);
