@@ -53,3 +53,13 @@ test('update', async done => {
 
     done();
 })
+
+test('get', async done => {
+    const member: Member = await DataBase.memberRepository.get('-1');
+
+    expect(member).toBeInstanceOf(Member);
+    expect(member.id).toBe('-1');
+    expect(member.count).toBe(3);
+
+    done();
+})
