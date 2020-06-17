@@ -1,4 +1,4 @@
-export class Member {
+export class GuildMember {
     public readonly id: string;
     public count: number;
 

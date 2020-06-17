@@ -1,6 +1,6 @@
 import {DataBase} from "../../Main/controller/DataBase";
 import {QueryResult} from "pg";
-import {Member} from "../../Main/model/Member";
+import {GuildMember} from "../../Main/model/GuildMember";
 
 beforeEach(async done => {
     await DataBase.queryFile('./sql/drop.sql')
@@ -11,7 +11,7 @@ beforeEach(async done => {
 })
 
 test('insert', async done => {
-    await DataBase.memberRepository.insert(new Member(
+    await DataBase.memberRepository.insert(new GuildMember(
         '-3',
         5
     ));
@@ -38,7 +38,7 @@ test('delete', async done => {
 })
 
 test('update', async done => {
-    await DataBase.memberRepository.update(new Member(
+    await DataBase.memberRepository.update(new GuildMember(
         '-1',
         5
     ));
@@ -55,9 +55,9 @@ test('update', async done => {
 })
 
 test('get', async done => {
-    const member: Member = await DataBase.memberRepository.get('-1');
+    const member: GuildMember = await DataBase.memberRepository.get('-1');
 
-    expect(member).toBeInstanceOf(Member);
+    expect(member).toBeInstanceOf(GuildMember);
     expect(member.id).toBe('-1');
     expect(member.count).toBe(3);
 
