@@ -49,7 +49,7 @@ test('update', async done => {
     );
 
     expect(result.rows[0].count).toBe(5);
-    expect(result.rows[1].id).toBe('-1');
+    expect(result.rows[0].id).toBe('-1');
 
     done();
 })
