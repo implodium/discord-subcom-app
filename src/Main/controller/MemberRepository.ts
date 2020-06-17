@@ -1,6 +1,7 @@
 import {Repository} from "./Repository";
 import {Member} from "../model/Member";
 import {DataBase} from "./DataBase";
+import {QueryResult} from "pg";
 
 export class MemberRepository extends Repository<Member>{
     async delete(id: string): Promise<void> {
@@ -24,7 +25,12 @@ export class MemberRepository extends Repository<Member>{
     }
 
     async update(object: Member): Promise<number> {
-        return Promise.resolve(0);
+        const result: QueryResult = await DataBase.query(
+            "UPDATE member SET count = $1 WHERE id = $2",
+            [object.count, object.id]
+        )
+
+        return result.rows.length;
     }
 
 }
