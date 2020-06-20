@@ -30,6 +30,7 @@ export class Add extends Command {
             if (await Add.memberIsPermitted(member)) {
                 await Add.addSubCom(member);
                 member.count--;
+                await DataBase.memberRepository.update(member)
             } else {
                 await msg.channel.createMessage('you have no subcoms left to create')
             }
@@ -59,7 +60,10 @@ export class Add extends Command {
             count = Math.max(...countPermissions);
         }
 
-        return new GuildMember(msg.author.id, count);
+        const member: GuildMember = new GuildMember(msg.author.id, count)
+        await DataBase.memberRepository.insert(member)
+            .catch(console.log)
+        return member;
     }
 
     private static async addSubCom(member: GuildMember): Promise<string> {
