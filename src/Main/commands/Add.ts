@@ -28,7 +28,8 @@ export class Add extends Command {
 
         if (msg.channel instanceof TextChannel) {
             if (await Add.memberIsPermitted(member)) {
-
+                await Add.addSubCom(member);
+                member.count--;
             } else {
                 await msg.channel.createMessage('you have no subcoms left to create')
             }
@@ -59,5 +60,9 @@ export class Add extends Command {
         }
 
         return new GuildMember(msg.author.id, count);
+    }
+
+    private static async addSubCom(member: GuildMember): Promise<string> {
+        return "";
     }
 }
