@@ -15,5 +15,6 @@ CREATE TABLE PERMISSION (
 
 CREATE TABLE MEMBER (
     id varchar(18),
-    count int
+    count int,
+    CONSTRAINT PK_MEMBER PRIMARY KEY (id)
 )
