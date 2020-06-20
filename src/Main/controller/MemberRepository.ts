@@ -27,7 +27,7 @@ export class MemberRepository extends Repository<GuildMember>{
         await DataBase.query(
             'INSERT INTO member (id, count) VALUES ($1, $2)',
             [object.id, object.count]
-        );
+        ).catch(console.log)
 
         return object.id
     }
