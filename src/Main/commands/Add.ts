@@ -29,6 +29,8 @@ export class Add extends Command {
         if (msg.channel instanceof TextChannel) {
             if (await Add.memberIsPermitted(member)) {
 
+            } else {
+                await msg.channel.createMessage('you have no subcoms left to create')
             }
         } else throw new Error('This feature is only supported in TextChannels')
     }
