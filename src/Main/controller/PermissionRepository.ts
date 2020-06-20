@@ -17,15 +17,11 @@ export class PermissionRepository extends Repository<Permission>{
             [roleId]
         );
 
-        if (result.rows.length === 1) {
-            return new Permission(
-                result.rows[0].roleid,
-                result.rows[0].count,
-                await DataBase.guildConfigRepository.get(result.rows[0].guildid)
-            );
-        }
-
-        return new Promise(() => null);
+        return new Permission(
+            result.rows[0].roleid,
+            result.rows[0].count,
+            await DataBase.guildConfigRepository.get(result.rows[0].guildid)
+        );
     }
 
     async insert(object: Permission): Promise<string> {
