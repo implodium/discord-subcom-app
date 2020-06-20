@@ -1,9 +1,10 @@
 import {Command} from "./Command";
-import {Message, TextChannel} from "eris";
+import {Guild, Message, TextChannel} from "eris";
 import {DataBase} from "../controller/DataBase";
 import {GuildMember} from "../model/GuildMember";
 import {Member} from "eris"
 import {Permission} from "../model/Permission";
+import {GuildConfig} from "../model/GuildConfig";
 
 export class Add extends Command {
 
@@ -12,27 +13,49 @@ export class Add extends Command {
     }
 
     protected async run(msg: Message, args: Array<string>): Promise<void> {
+        const guild = (msg.channel as TextChannel).guild;
+        const guildConfig: GuildConfig = await DataBase.guildConfigRepository.get(guild.id)
+            .catch(err => {
+                console.log(err.stack)
+                return new GuildConfig('-1', '-1')
+            })
+
+        const member: GuildMember = await DataBase.memberRepository.get(msg.author.id)
+            .catch(async () => {
+                return await Add.initMember(guild, msg, guildConfig);
+            })
+
+
         if (msg.channel instanceof TextChannel) {
-            if (await Add.memberIsPermitted(msg)) {
+            if (await Add.memberIsPermitted(member)) {
 
             }
         } else throw new Error('This feature is only supported in TextChannels')
     }
 
-    private static async memberIsPermitted(msg: Message): Promise<boolean> {
-        console.log("hello world");
-        const guild = (msg.channel as TextChannel).guild;
-        const member: GuildMember = await DataBase.memberRepository.get(msg.author.id)
+    private static async memberIsPermitted(member: GuildMember): Promise<boolean> {
+        return member.count > 0;
+    }
 
-        if (guild.members.get(member.id) instanceof Member) {
-            const guildMember: Member = guild.members.get(member.id) as Member;
+    private static async initMember(guild: Guild, msg: Message, guildConfig: GuildConfig) {
+        let count: number = 0;
 
-            console.log(guildMember.roles);
-            guildMember.roles.forEach(async (role) => {
+        if (guild.members.get(msg.author.id) !== undefined) {
+            const roles: Array<string> = (guild.members.get(msg.author.id) as Member).roles
+            let countPermissions: Array<number> = [];
+
+            for (let role of roles) {
                 let permission: Permission = await DataBase.permissionRepository.get(role)
-            })
+                    .catch(async () => {
+                        console.log("no permission for this role")
+                        return new Permission('-1', -1, guildConfig)
+                    })
+                countPermissions.push(permission.count);
+            }
+
+            count = Math.max(...countPermissions);
         }
 
-        return false;
+        return new GuildMember(msg.author.id, count);
     }
 }
