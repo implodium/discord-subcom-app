@@ -13,6 +13,6 @@ export class SubCom {
 
     public removeMember(id: string) {
         const index = this.members.indexOf(id);
-        this.members.slice(index, index);
+        this.members.splice(index, 1);
     }
 }
