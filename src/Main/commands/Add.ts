@@ -1,5 +1,5 @@
 import {Command} from "./Command";
-import {Guild, Message, TextChannel} from "eris";
+import {Constants, Guild, Message, Role, TextChannel} from "eris";
 import {DataBase} from "../controller/DataBase";
 import {GuildMember} from "../model/GuildMember";
 import {Member} from "eris"
@@ -28,7 +28,7 @@ export class Add extends Command {
 
         if (msg.channel instanceof TextChannel) {
             if (await Add.memberIsPermitted(member)) {
-                await Add.addSubCom(member);
+                await Add.addSubCom('some name', member, guild);
                 member.count--;
                 await DataBase.memberRepository.update(member)
             } else {
@@ -66,7 +66,30 @@ export class Add extends Command {
         return member;
     }
 
-    private static async addSubCom(member: GuildMember): Promise<string> {
+    private static async addSubCom(name: string, member: GuildMember, guild: Guild): Promise<string> {
+        const defaultRole: Role = guild.roles.find(role => {
+            return role.name === '@everyone'
+        }) as Role;
+
+        await guild.createChannel(name, Constants.ChannelTypes.GUILD_CATEGORY, {
+            permissionOverwrites: [
+                {
+                    id: defaultRole.id,
+                    type: 'role',
+                    deny: Constants.Permissions.all,
+                    allow: 0
+                },
+                {
+                    id: member.id,
+                    type: "member",
+                    allow: Constants.Permissions.all,
+                    deny: 0
+                }
+            ]
+        })
+
+        console.log("guild created")
+
         return "";
     }
 }
