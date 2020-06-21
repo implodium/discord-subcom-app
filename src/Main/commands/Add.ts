@@ -9,7 +9,7 @@ import {GuildConfig} from "../model/GuildConfig";
 export class Add extends Command {
 
     public constructor() {
-        super('add', 0, 2);
+        super('add', 1, Number.MAX_VALUE);
     }
 
     protected async run(msg: Message, args: Array<string>): Promise<void> {
@@ -28,7 +28,7 @@ export class Add extends Command {
 
         if (msg.channel instanceof TextChannel) {
             if (await Add.memberIsPermitted(member)) {
-                await Add.addSubCom('some name', member, guild);
+                await Add.addSubCom(args.join(' '), member, guild);
                 member.count--;
                 await DataBase.memberRepository.update(member)
             } else {
