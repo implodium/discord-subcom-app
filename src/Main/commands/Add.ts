@@ -22,14 +22,14 @@ export class Add extends Command {
 
         const member: GuildMember = await DataBase.memberRepository.get(msg.author.id)
             .catch(async () => {
-                return await Add.initMember(guild, msg, guildConfig);
+                return await Add.initMember(msg);
             })
 
 
         if (msg.channel instanceof TextChannel) {
-            if (await Add.memberIsPermitted(member)) {
+            if (await Add.memberIsPermitted(member, guild, guildConfig, msg)) {
                 await Add.addSubCom(args.join(' '), member, guild);
-                member.count--;
+                member.count++;
                 await DataBase.memberRepository.update(member)
             } else {
                 await msg.channel.createMessage('you have no subcoms left to create')
@@ -37,13 +37,11 @@ export class Add extends Command {
         } else throw new Error('This feature is only supported in TextChannels')
     }
 
-    private static async memberIsPermitted(member: GuildMember): Promise<boolean> {
-        return member.count > 0;
+    private static async memberIsPermitted(member: GuildMember, guild: Guild, guildConfig: GuildConfig, msg: Message): Promise<boolean> {
+        return member.count < await this.getCount(guild, msg, guildConfig);
     }
 
-    private static async initMember(guild: Guild, msg: Message, guildConfig: GuildConfig) {
-        let count: number = 0;
-
+    private static async getCount(guild: Guild, msg: Message, guildConfig: GuildConfig) {
         if (guild.members.get(msg.author.id) !== undefined) {
             const roles: Array<string> = (guild.members.get(msg.author.id) as Member).roles
             let countPermissions: Array<number> = [];
@@ -57,10 +55,14 @@ export class Add extends Command {
                 countPermissions.push(permission.count);
             }
 
-            count = Math.max(...countPermissions);
+            return Math.max(...countPermissions);
         }
 
-        const member: GuildMember = new GuildMember(msg.author.id, count)
+        return 0;
+    }
+
+    private static async initMember(msg: Message) {
+        const member: GuildMember = new GuildMember(msg.author.id, 0)
         await DataBase.memberRepository.insert(member)
             .catch(console.log)
         return member;
