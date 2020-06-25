@@ -20,12 +20,12 @@ test('insert', async done => {
     ));
 
     const result: QueryResult = await DataBase.query(
-        'SELECT * FROM member WHERE id = $1',
+        'SELECT * FROM subcom WHERE categoryid = $1',
         ['-3']
     );
 
     expect(result.rows[0].name).toBe('some name');
-    expect(result.rows[0].categoryid).toBe(-3);
-    expect(result.rows[0].ownerId).toBe(-3)
+    expect(result.rows[0].categoryid).toBe('-3');
+    expect(result.rows[0].ownerid).toBe('-3')
     done();
 })
