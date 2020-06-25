@@ -3,11 +3,13 @@ import {Client, QueryResult} from 'pg';
 import fs from 'fs';
 import {PermissionRepository} from "./PermissionRepository";
 import {MemberRepository} from "./MemberRepository";
+import {SubComRepository} from "./SubComRepository";
 
 export class DataBase {
     public static guildConfigRepository = new GuildConfigRepository();
     public static permissionRepository = new PermissionRepository();
     public static memberRepository = new MemberRepository();
+    public static subComRepository = new SubComRepository();
 
     static async query(query: string, args: Array<string | number> = []): Promise<QueryResult> {
         const client: Client = new Client();

@@ -7,7 +7,9 @@ beforeEach(async(done) => {
     await DataBase.queryFile('./sql/drop.sql')
         .catch(console.log)
     await DataBase.queryFile('./sql/create.sql')
+        .catch(console.log)
     await DataBase.queryFile('./sql/insert.sql')
+        .catch(console.log)
     done();
 })
 
