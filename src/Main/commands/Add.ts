@@ -86,7 +86,8 @@ export class Add extends Command {
                     id: member.id,
                     type: "member",
                     allow: Constants.Permissions.all
-                        - Constants.Permissions.manageRoles,
+                        - Constants.Permissions.manageRoles
+                        - Constants.Permissions.administrator,
                     deny: 0
                 }
             ]
