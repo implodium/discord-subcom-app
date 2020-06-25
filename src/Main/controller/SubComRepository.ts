@@ -5,7 +5,10 @@ import {QueryResult} from "pg";
 
 export class SubComRepository extends Repository<SubCom>{
     async delete(id: string): Promise<void> {
-        return Promise.resolve(undefined);
+        await DataBase.query(
+            'DELETE FROM subcom WHERE categoryid = $1',
+            [id]
+        )
     }
 
     async get(id: string): Promise<SubCom> {

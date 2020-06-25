@@ -59,3 +59,14 @@ test('update', async done => {
 
     done();
 })
+
+test('delete', async done => {
+    await DataBase.subComRepository.delete('-1');
+
+    const result: QueryResult = await DataBase.query(
+        "SELECT * FROM subcom WHERE categoryid  = '-1'"
+    );
+
+    expect(result.rows.length).toBe(0);
+    done();
+})
