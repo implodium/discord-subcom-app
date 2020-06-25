@@ -1,21 +1,21 @@
 import {AssoziationRepository} from "./AssoziationRepository";
-import {SubComAssoziation} from "../model/SubComAssoziation";
+import {SubComMemberAssoziation} from "../model/SubComMemberAssoziation";
 import {SubCom} from "../model/SubCom";
 
-export class SubComMemberAssoziationRepository extends AssoziationRepository<SubComAssoziation>{
+export class SubComMemberAssoziationRepository extends AssoziationRepository<SubComMemberAssoziation>{
     async delete(id1: string, id2: string): Promise<void> {
         return Promise.resolve(undefined);
     }
 
-    async get(id1: string, id2: string): Promise<SubComAssoziation> {
-        return Promise.resolve(new SubComAssoziation(new SubCom('', '', ''), ''));
+    async get(id1: string, id2: string): Promise<SubComMemberAssoziation> {
+        return Promise.resolve(new SubComMemberAssoziation(new SubCom('', '', ''), ''));
     }
 
-    async insert(object: SubComAssoziation): Promise<string> {
+    async insert(object: SubComMemberAssoziation): Promise<string> {
         return Promise.resolve("");
     }
 
-    async update(object: SubComAssoziation): Promise<number> {
+    async update(object: SubComMemberAssoziation): Promise<number> {
         return Promise.resolve(0);
     }
 
