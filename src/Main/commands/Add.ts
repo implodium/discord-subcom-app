@@ -1,10 +1,11 @@
 import {Command} from "./Command";
-import {Channel, Constants, Guild, Message, Role, TextChannel} from "eris";
+import {CategoryChannel, Constants, Guild, Message, Role, TextChannel} from "eris";
 import {DataBase} from "../controller/DataBase";
 import {GuildMember} from "../model/GuildMember";
 import {Member} from "eris"
 import {Permission} from "../model/Permission";
 import {GuildConfig} from "../model/GuildConfig";
+import {SubCom} from "../model/SubCom";
 
 export class Add extends Command {
 
@@ -73,7 +74,7 @@ export class Add extends Command {
             return role.name === '@everyone'
         }) as Role;
 
-        const category: Channel = await guild.createChannel(name, Constants.ChannelTypes.GUILD_CATEGORY, {
+        const category: CategoryChannel = await guild.createChannel(name, Constants.ChannelTypes.GUILD_CATEGORY, {
             permissionOverwrites: [
                 {
                     id: defaultRole.id,
@@ -112,5 +113,11 @@ export class Add extends Command {
         await channel.createMessage(
             'This channel is the handle of your sub community use it to edit your SubCommunity'
         ).catch(console.log)
+
+        await DataBase.subComRepository.insert(new SubCom(
+            category.id,
+            category.name,
+            member.id
+        ));
     }
 }
