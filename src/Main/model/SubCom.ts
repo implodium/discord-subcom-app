@@ -7,8 +7,8 @@ export class SubCom {
     constructor(
         id: string,
         name: string,
-        members: Array<string> = new Array<string>(),
-        ownerId: string
+        ownerId: string,
+        members: Array<string> = new Array<string>()
     ) {
         this.id = id;
         this.name = name;
