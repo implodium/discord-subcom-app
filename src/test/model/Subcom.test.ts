@@ -3,7 +3,7 @@ import {SubCom} from "../../Main/model/SubCom";
 let subcom: SubCom;
 
 beforeEach(() => {
-    subcom = new SubCom('testName');
+    //subcom = new SubCom('testName');
 })
 
 test('add Member', () => {
