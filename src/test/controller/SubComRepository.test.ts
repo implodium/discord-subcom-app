@@ -29,3 +29,15 @@ test('insert', async done => {
     expect(result.rows[0].ownerid).toBe('-3')
     done();
 })
+
+test('get', async done => {
+    const subCom1: SubCom = await DataBase.subComRepository.get('-1');
+    expect(subCom1.id).toBe('-1');
+    expect(subCom1.ownerId).toBe('-1');
+    expect(subCom1.name).toBe('some name 1')
+    const subCom2: SubCom = await DataBase.subComRepository.get('-2');
+    expect(subCom2.id).toBe('-2');
+    expect(subCom2.ownerId).toBe('-2');
+    expect(subCom2.name).toBe('some name 2')
+    done();
+})

@@ -1,6 +1,7 @@
 import {Repository} from "./Repository";
 import {SubCom} from "../model/SubCom";
 import {DataBase} from "./DataBase";
+import {QueryResult} from "pg";
 
 export class SubComRepository extends Repository<SubCom>{
     async delete(id: string): Promise<void> {
@@ -8,7 +9,16 @@ export class SubComRepository extends Repository<SubCom>{
     }
 
     async get(id: string): Promise<SubCom> {
-        return Promise.resolve(new SubCom('', '', ''));
+        const result: QueryResult = await DataBase.query(
+            "SELECT * FROM subcom WHERE categoryid = $1",
+            [id]
+        );
+
+        return new SubCom(
+            result.rows[0].categoryid,
+            result.rows[0].name,
+            result.rows[0].ownerid
+        )
     }
 
     async insert(object: SubCom): Promise<string> {
