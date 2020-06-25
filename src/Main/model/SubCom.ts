@@ -2,15 +2,18 @@ export class SubCom {
     public readonly id: string;
     public readonly name: string;
     public members: Array<string>;
+    public readonly ownerId: string;
 
     constructor(
         id: string,
         name: string,
-        members: Array<string> = new Array<string>()
+        members: Array<string> = new Array<string>(),
+        ownerId: string
     ) {
         this.id = id;
         this.name = name;
         this.members = members;
+        this.ownerId = ownerId;
     }
 
     public addMember(id: string) {
