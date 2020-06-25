@@ -7,6 +7,7 @@ import {Settings} from "./commands/Settings";
 import {DataBase} from "./controller/DataBase";
 import {GuildConfig} from "./model/GuildConfig";
 import {Add} from "./commands/Add";
+import {Delete} from "./commands/Delete";
 
 export class SubComBot {
 
@@ -51,6 +52,7 @@ export class SubComBot {
         this.initializeCommand(new Add())
         this.initializeCommand(new Echo())
         this.initializeCommand(new Settings())
+        this.initializeCommand(new Delete())
     }
 
     private initializeCommand(command: Command) {
