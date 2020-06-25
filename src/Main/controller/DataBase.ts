@@ -4,12 +4,14 @@ import fs from 'fs';
 import {PermissionRepository} from "./PermissionRepository";
 import {MemberRepository} from "./MemberRepository";
 import {SubComRepository} from "./SubComRepository";
+import {SubComMemberAssoziationRepository} from "./SubComMemberAssoziationRepository";
 
 export class DataBase {
     public static guildConfigRepository = new GuildConfigRepository();
     public static permissionRepository = new PermissionRepository();
     public static memberRepository = new MemberRepository();
     public static subComRepository = new SubComRepository();
+    public static subComMemberAssoziationRepository = new SubComMemberAssoziationRepository();
 
     static async query(query: string, args: Array<string | number> = []): Promise<QueryResult> {
         const client: Client = new Client();
