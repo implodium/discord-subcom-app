@@ -10,7 +10,7 @@ import {SubCom} from "../model/SubCom";
 export class Create extends Command {
 
     public constructor() {
-        super('add', 1, Number.MAX_VALUE);
+        super('create', 1, Number.MAX_VALUE);
     }
 
     protected async run(msg: Message, args: Array<string>): Promise<void> {
