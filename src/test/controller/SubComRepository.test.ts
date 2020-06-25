@@ -41,3 +41,21 @@ test('get', async done => {
     expect(subCom2.name).toBe('some name 2')
     done();
 })
+
+test('update', async done => {
+    await DataBase.subComRepository.update(new SubCom(
+        '-1',
+        'some name 3',
+        '-50'
+    ));
+
+    const result: QueryResult = await DataBase.query(
+        "SELECT * FROM subcom WHERE categoryid = $1",
+        ['-1']
+    );
+
+    expect(result.rows[0].name).toBe('some name 3');
+    expect(result.rows[0].ownerid).toBe('-50');
+
+    done();
+})

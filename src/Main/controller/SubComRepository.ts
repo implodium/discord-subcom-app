@@ -31,7 +31,12 @@ export class SubComRepository extends Repository<SubCom>{
     }
 
     async update(object: SubCom): Promise<number> {
-        return Promise.resolve(0);
+        const result: QueryResult = await DataBase.query(
+            'UPDATE subcom SET name = $1, ownerid = $2 WHERE categoryid = $3',
+            [object.name, object.ownerId, object.id]
+        )
+
+        return result.rowCount;
     }
 
 }
