@@ -7,7 +7,7 @@ import {Permission} from "../model/Permission";
 import {GuildConfig} from "../model/GuildConfig";
 import {SubCom} from "../model/SubCom";
 
-export class Add extends Command {
+export class Create extends Command {
 
     public constructor() {
         super('add', 1, Number.MAX_VALUE);
@@ -23,13 +23,13 @@ export class Add extends Command {
 
         const member: GuildMember = await DataBase.memberRepository.get(msg.author.id)
             .catch(async () => {
-                return await Add.initMember(msg);
+                return await Create.initMember(msg);
             })
 
 
         if (msg.channel instanceof TextChannel) {
-            if (await Add.memberIsPermitted(member, guild, guildConfig, msg)) {
-                await Add.addSubCom(args.join(' '), member, guild);
+            if (await Create.memberIsPermitted(member, guild, guildConfig, msg)) {
+                await Create.addSubCom(args.join(' '), member, guild);
                 member.count++;
                 await DataBase.memberRepository.update(member)
             } else {
