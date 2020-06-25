@@ -70,3 +70,26 @@ test('delete', async done => {
     expect(result.rows.length).toBe(0);
     done();
 })
+
+test('getAllByOwner', async done => {
+    let subcoms: Array<SubCom> = await DataBase.subComRepository.getAllByOwner('-1');
+
+    expect(subcoms.length).toBe(2);
+    expect(subcoms[0]).toBeInstanceOf(SubCom);
+    expect(subcoms[1]).toBeInstanceOf(SubCom);
+    expect(subcoms[0]).toBeTruthy();
+    expect(subcoms[1]).toBeTruthy();
+
+    subcoms = subcoms.sort((a: SubCom, b: SubCom) => {
+        return a.id.localeCompare(b.id)
+    })
+
+    expect(subcoms[0].id).toBe('-1')
+    expect(subcoms[1].id).toBe('-4')
+    expect(subcoms[0].name).toBe('some name 1')
+    expect(subcoms[1].name).toBe('some name 1')
+    expect(subcoms[0].ownerId).toBe('-1')
+    expect(subcoms[1].ownerId).toBe('-1')
+
+    done();
+})

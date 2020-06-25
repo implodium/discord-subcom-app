@@ -42,4 +42,23 @@ export class SubComRepository extends Repository<SubCom>{
         return result.rowCount;
     }
 
+    async getAllByOwner(ownerId: string): Promise<Array<SubCom>> {
+        const subcoms: Array<SubCom> = []
+
+        const result: QueryResult = await DataBase.query(
+            'SELECT * FROM subcom WHERE ownerid = $1',
+            [ownerId]
+        )
+
+        result.rows.forEach(row => {
+            subcoms.push(new SubCom(
+                row.categoryid,
+                row.name,
+                row.ownerid
+            ))
+        })
+
+        return subcoms;
+    }
+
 }
