@@ -1,5 +1,5 @@
 import {Command} from "./Command";
-import {Constants, Guild, Message, Role, TextChannel} from "eris";
+import {Channel, Constants, Guild, Message, Role, TextChannel} from "eris";
 import {DataBase} from "../controller/DataBase";
 import {GuildMember} from "../model/GuildMember";
 import {Member} from "eris"
@@ -68,12 +68,12 @@ export class Add extends Command {
         return member;
     }
 
-    private static async addSubCom(name: string, member: GuildMember, guild: Guild): Promise<string> {
+    private static async addSubCom(name: string, member: GuildMember, guild: Guild): Promise<void> {
         const defaultRole: Role = guild.roles.find(role => {
             return role.name === '@everyone'
         }) as Role;
 
-        await guild.createChannel(name, Constants.ChannelTypes.GUILD_CATEGORY, {
+        const category: Channel = await guild.createChannel(name, Constants.ChannelTypes.GUILD_CATEGORY, {
             permissionOverwrites: [
                 {
                     id: defaultRole.id,
@@ -91,8 +91,26 @@ export class Add extends Command {
             ]
         })
 
-        console.log("guild created")
+        const channel = await guild.createChannel(`handle:${name}`, Constants.ChannelTypes.GUILD_TEXT, {
+            parentID: category.id,
+            permissionOverwrites: [
+                {
+                    id: defaultRole.id,
+                    type: 'role',
+                    deny: Constants.Permissions.all,
+                    allow: 0
+                },
+                {
+                    id: member.id,
+                    type: 'member',
+                    deny: Constants.Permissions.all,
+                    allow: Constants.Permissions.readMessages + Constants.Permissions.readMessageHistory
+                }
+            ]
+        })
 
-        return "";
+        await channel.createMessage(
+            'This channel is the handle of your sub community use it to edit your SubCommunity'
+        ).catch(console.log)
     }
 }
