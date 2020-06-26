@@ -42,7 +42,11 @@ export class Add extends Command {
                 memberId
             )
 
-            await DataBase.subComMemberAssoziationRepository.insert(subComMemberAssoziation);
+            await DataBase.subComMemberAssoziationRepository.insert(subComMemberAssoziation)
+                .catch(e => {
+                    console.log(e)
+                    throw new BotError('User already added')
+                })
         } else throw new BotError('Wrong Arrangement of Arguments')
     }
 
