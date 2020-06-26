@@ -11,10 +11,10 @@ export class SubComMemberAssoziationRepository extends AssoziationRepository<Sub
         )
     }
 
-    async get(id1: string, id2: string): Promise<SubComMemberAssoziation> {
+    async get(subcomid: string, memberid: string): Promise<SubComMemberAssoziation> {
         const result: QueryResult = await DataBase.query(
             'SELECT * FROM subcom_member_assoziation WHERE memberid = $1 AND subcomid = $2',
-            [id1, id2]
+            [memberid, subcomid]
         )
 
         return new SubComMemberAssoziation(
