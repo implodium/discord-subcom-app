@@ -4,8 +4,11 @@ import {QueryResult} from "pg";
 import {DataBase} from "./DataBase";
 
 export class SubComMemberAssoziationRepository extends AssoziationRepository<SubComMemberAssoziation>{
-    async delete(id1: string, id2: string): Promise<void> {
-
+    async delete(subcomid: string, memberid: string): Promise<void> {
+        await DataBase.query(
+            "DELETE FROM subcom_member_assoziation WHERE subcomid = $1 AND memberid = $2",
+            [subcomid, memberid]
+        )
     }
 
     async get(id1: string, id2: string): Promise<SubComMemberAssoziation> {
