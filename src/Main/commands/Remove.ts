@@ -23,6 +23,12 @@ export class Remove extends Command {
             const disMember = channel.guild.members.get(memberId) as Member;
 
             if (Remove.userIsPermitted(msg.author.id, subcom)) {
+                await DataBase.subComMemberAssoziationRepository.get(subcom.id, memberId)
+                    .catch(e => {
+                        console.log(e.message);
+                        throw new BotError('user is not member of the subcommunity')
+                    })
+
                 await category.editPermission(
                     disMember.id,
                     0,
