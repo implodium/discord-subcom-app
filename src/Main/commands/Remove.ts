@@ -38,6 +38,8 @@ export class Remove extends Command {
             await DataBase.subComMemberAssoziationRepository.delete(subcom.id, memberId)
                 .catch(console.log)
         } else throw new BotError('Wrong Arrangement of Arguments')
+
+        await msg.channel.createMessage('User has been removed from the subcom')
     }
 
     private static isValid(args: Array<string>): boolean {

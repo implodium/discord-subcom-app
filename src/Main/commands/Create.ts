@@ -37,6 +37,8 @@ export class Create extends Command {
                 await msg.channel.createMessage('you have no subcoms left to create')
             }
         } else throw new BotError('This feature is only supported in TextChannels')
+
+        await msg.channel.createMessage('subcom has been created')
     }
 
     private static async memberIsPermitted(member: GuildMember, guild: Guild, guildConfig: GuildConfig, msg: Message): Promise<boolean> {

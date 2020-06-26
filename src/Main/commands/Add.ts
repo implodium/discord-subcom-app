@@ -48,6 +48,8 @@ export class Add extends Command {
                     throw new BotError('User already added')
                 })
         } else throw new BotError('Wrong Arrangement of Arguments')
+
+        await msg.channel.createMessage('User has been added to the subcom')
     }
 
     private static isValid(args: Array<string>): boolean {
