@@ -1,17 +1,15 @@
 import {Command} from "./Command";
 import {CategoryChannel, Constants, Member, Message, TextChannel} from "eris";
 import {DataBase} from "../controller/DataBase";
-import {SubComMemberAssoziation} from "../model/SubComMemberAssoziation";
 
-
-export class Add extends Command {
+export class Remove extends Command {
 
     constructor() {
-        super('add', 2,2);
+        super('remove', 2, 2);
     }
 
-    protected async run(msg: Message, args: Array<string>): Promise<void> {
-        if (Add.isValid(args)) {
+    async run(msg: Message, args: Array<string>): Promise<void> {
+        if (Remove.isValid(args)) {
             const channel = msg.channel as TextChannel;
             const memberId = args[0].replace(/[^0-9]/g, '');
             const handleId = args[1].replace(/[^0-9]/g, '');
@@ -24,6 +22,7 @@ export class Add extends Command {
 
             await category.editPermission(
                 disMember.id,
+                0,
                 Constants.Permissions.readMessageHistory
                     + Constants.Permissions.readMessages
                     + Constants.Permissions.voiceConnect
@@ -32,16 +31,11 @@ export class Add extends Command {
                     + Constants.Permissions.voiceUseVAD
                     + Constants.Permissions.addReactions
                     + Constants.Permissions.voiceSpeak,
-                0,
                 'member'
             );
 
-            const subComMemberAssoziation = new SubComMemberAssoziation(
-                subcom,
-                memberId
-            )
-
-            await DataBase.subComMemberAssoziationRepository.insert(subComMemberAssoziation);
+            await DataBase.subComMemberAssoziationRepository.delete(subcom.id, memberId)
+                .catch(console.log)
         } else throw Error('Wrong Arrangement of Arguments')
     }
 
