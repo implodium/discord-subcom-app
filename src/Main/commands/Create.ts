@@ -6,6 +6,7 @@ import {Member} from "eris"
 import {Permission} from "../model/Permission";
 import {GuildConfig} from "../model/GuildConfig";
 import {SubCom} from "../model/SubCom";
+import {BotError} from "../exceptions/BotError";
 
 export class Create extends Command {
 
@@ -35,7 +36,7 @@ export class Create extends Command {
             } else {
                 await msg.channel.createMessage('you have no subcoms left to create')
             }
-        } else throw new Error('This feature is only supported in TextChannels')
+        } else throw new BotError('This feature is only supported in TextChannels')
     }
 
     private static async memberIsPermitted(member: GuildMember, guild: Guild, guildConfig: GuildConfig, msg: Message): Promise<boolean> {

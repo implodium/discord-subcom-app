@@ -2,6 +2,7 @@ import {Command} from "./Command";
 import {CategoryChannel, Constants, Member, Message, TextChannel} from "eris";
 import {DataBase} from "../controller/DataBase";
 import {SubComMemberAssoziation} from "../model/SubComMemberAssoziation";
+import {BotError} from "../exceptions/BotError";
 
 
 export class Add extends Command {
@@ -42,7 +43,7 @@ export class Add extends Command {
             )
 
             await DataBase.subComMemberAssoziationRepository.insert(subComMemberAssoziation);
-        } else throw Error('Wrong Arrangement of Arguments')
+        } else throw new BotError('Wrong Arrangement of Arguments')
     }
 
     private static isValid(args: Array<string>): boolean {
