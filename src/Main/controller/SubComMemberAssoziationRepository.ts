@@ -1,22 +1,34 @@
 import {AssoziationRepository} from "./AssoziationRepository";
-import {SubComAssoziation} from "../model/SubComAssoziation";
-import {SubCom} from "../model/SubCom";
+import {SubComMemberAssoziation} from "../model/SubComMemberAssoziation";
+import {QueryResult} from "pg";
+import {DataBase} from "./DataBase";
 
-export class SubComMemberAssoziationRepository extends AssoziationRepository<SubComAssoziation>{
-    async delete(id1: string, id2: string): Promise<void> {
-        return Promise.resolve(undefined);
+export class SubComMemberAssoziationRepository extends AssoziationRepository<SubComMemberAssoziation>{
+    async delete(subcomid: string, memberid: string): Promise<void> {
+        await DataBase.query(
+            "DELETE FROM subcom_member_assoziation WHERE subcomid = $1 AND memberid = $2",
+            [subcomid, memberid]
+        )
     }
 
-    async get(id1: string, id2: string): Promise<SubComAssoziation> {
-        return Promise.resolve(new SubComAssoziation(new SubCom('', '', ''), ''));
+    async get(id1: string, id2: string): Promise<SubComMemberAssoziation> {
+        const result: QueryResult = await DataBase.query(
+            'SELECT * FROM subcom_member_assoziation WHERE memberid = $1 AND subcomid = $2',
+            [id1, id2]
+        )
+
+        return new SubComMemberAssoziation(
+            await DataBase.subComRepository.get(result.rows[0].subcomid),
+            result.rows[0].memberid
+        )
     }
 
-    async insert(object: SubComAssoziation): Promise<string> {
-        return Promise.resolve("");
-    }
+    async insert(object: SubComMemberAssoziation): Promise<Array<string>> {
+        await DataBase.query(
+            "INSERT INTO subcom_member_assoziation (subcomid, memberid) VALUES ($1, $2)",
+            [object.subCom.id, object.memberId]
+        )
 
-    async update(object: SubComAssoziation): Promise<number> {
-        return Promise.resolve(0);
+        return [object.subCom.id, object.memberId]
     }
-
 }

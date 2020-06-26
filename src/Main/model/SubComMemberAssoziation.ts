@@ -1,6 +1,6 @@
 import {SubCom} from "./SubCom";
 
-export class SubComAssoziation {
+export class SubComMemberAssoziation {
     public readonly subCom: SubCom;
     public readonly memberId: string;
 
