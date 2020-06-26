@@ -3,6 +3,7 @@ import {CategoryChannel, Constants, Member, Message, TextChannel} from "eris";
 import {DataBase} from "../controller/DataBase";
 import {SubComMemberAssoziation} from "../model/SubComMemberAssoziation";
 import {BotError} from "../exceptions/BotError";
+import {SubCom} from "../model/SubCom";
 
 
 export class Add extends Command {
@@ -23,9 +24,10 @@ export class Add extends Command {
             const category = channel.guild.channels.get(categoryId as string) as CategoryChannel;
             const disMember = channel.guild.members.get(memberId) as Member;
 
-            await category.editPermission(
-                disMember.id,
-                Constants.Permissions.readMessageHistory
+            if (Add.userIsPermitted(msg.author.id, subcom)) {
+                await category.editPermission(
+                    disMember.id,
+                    Constants.Permissions.readMessageHistory
                     + Constants.Permissions.readMessages
                     + Constants.Permissions.voiceConnect
                     + Constants.Permissions.attachFiles
@@ -33,20 +35,21 @@ export class Add extends Command {
                     + Constants.Permissions.voiceUseVAD
                     + Constants.Permissions.addReactions
                     + Constants.Permissions.voiceSpeak,
-                0,
-                'member'
-            );
+                    0,
+                    'member'
+                );
 
-            const subComMemberAssoziation = new SubComMemberAssoziation(
-                subcom,
-                memberId
-            )
+                const subComMemberAssoziation = new SubComMemberAssoziation(
+                    subcom,
+                    memberId
+                )
 
-            await DataBase.subComMemberAssoziationRepository.insert(subComMemberAssoziation)
-                .catch(e => {
-                    console.log(e)
-                    throw new BotError('User already added')
-                })
+                await DataBase.subComMemberAssoziationRepository.insert(subComMemberAssoziation)
+                    .catch(e => {
+                        console.log(e)
+                        throw new BotError('User already added')
+                    })
+            } else throw new BotError("You aren't permitted to do that")
         } else throw new BotError('Wrong Arrangement of Arguments')
 
         await msg.channel.createMessage('User has been added to the subcom')
@@ -54,5 +57,9 @@ export class Add extends Command {
 
     private static isValid(args: Array<string>): boolean {
         return args[0].includes('@') && args[1].includes('#');
+    }
+
+    private static userIsPermitted(authorId: string, subCom: SubCom) {
+        return authorId === subCom.ownerId;
     }
 }
