@@ -1,4 +1,5 @@
 import {Message} from "eris";
+import {BotError} from "../exceptions/BotError";
 
 export abstract class Command {
 
@@ -16,9 +17,13 @@ export abstract class Command {
     public async execute(msg: Message, args: Array<string>) {
         try {
             if (this.argsAreValid(args)) await this.run(msg, args);
-            else throw new Error('Invalid Arguments')
+            else throw new BotError('Invalid Arguments')
         } catch (e) {
-            await msg.channel.createMessage(e.message)
+            if (e instanceof BotError) {
+                await msg.channel.createMessage(e.message)
+            } else {
+                console.log(e.message)
+            }
         }
     }
 

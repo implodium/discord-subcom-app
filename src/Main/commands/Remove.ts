@@ -1,6 +1,7 @@
 import {Command} from "./Command";
 import {CategoryChannel, Constants, Member, Message, TextChannel} from "eris";
 import {DataBase} from "../controller/DataBase";
+import {BotError} from "../exceptions/BotError";
 
 export class Remove extends Command {
 
@@ -36,7 +37,9 @@ export class Remove extends Command {
 
             await DataBase.subComMemberAssoziationRepository.delete(subcom.id, memberId)
                 .catch(console.log)
-        } else throw Error('Wrong Arrangement of Arguments')
+        } else throw new BotError('Wrong Arrangement of Arguments')
+
+        await msg.channel.createMessage('User has been removed from the subcom')
     }
 
     private static isValid(args: Array<string>): boolean {

@@ -4,6 +4,7 @@ import {DataBase} from "../controller/DataBase";
 import {GuildConfig} from "../model/GuildConfig";
 import {SubComBot} from "../SubComBot";
 import {Permission} from "../model/Permission";
+import {BotError} from "../exceptions/BotError";
 
 export class Settings extends Command {
 
@@ -28,7 +29,7 @@ export class Settings extends Command {
                         SubComBot.instance.bot.registerGuildPrefix(serverConfig.guildId, `${serverConfig.prefix}subcom `);
                     }
                 } else {
-                    throw new Error("This feature is only supported in text channels")
+                    throw new BotError("This feature is only supported in text channels")
                 }
                 break;
             case 'role':
@@ -68,7 +69,7 @@ export class Settings extends Command {
                                         `Role <@&${permission.roleId}> can now create 5 SubCommunities`
                                     );
                                 } else {
-                                    throw new Error("Invalid number of arguments")
+                                    throw new BotError("Invalid number of arguments")
                                 }
                                 break;
                             case 'delete':
@@ -80,7 +81,7 @@ export class Settings extends Command {
                                 } else throw new Error("Invalid number of arguments")
                                 break;
                             default:
-                                throw new Error("Invalid Operation")
+                                throw new BotError("Invalid Operation")
                         }
                     }
                 }

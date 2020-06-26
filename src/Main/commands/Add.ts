@@ -2,6 +2,7 @@ import {Command} from "./Command";
 import {CategoryChannel, Constants, Member, Message, TextChannel} from "eris";
 import {DataBase} from "../controller/DataBase";
 import {SubComMemberAssoziation} from "../model/SubComMemberAssoziation";
+import {BotError} from "../exceptions/BotError";
 
 
 export class Add extends Command {
@@ -41,8 +42,14 @@ export class Add extends Command {
                 memberId
             )
 
-            await DataBase.subComMemberAssoziationRepository.insert(subComMemberAssoziation);
-        } else throw Error('Wrong Arrangement of Arguments')
+            await DataBase.subComMemberAssoziationRepository.insert(subComMemberAssoziation)
+                .catch(e => {
+                    console.log(e)
+                    throw new BotError('User already added')
+                })
+        } else throw new BotError('Wrong Arrangement of Arguments')
+
+        await msg.channel.createMessage('User has been added to the subcom')
     }
 
     private static isValid(args: Array<string>): boolean {
