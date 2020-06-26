@@ -1,6 +1,7 @@
 import {Command} from "./Command";
-import {Member, Message, TextChannel} from "eris";
+import {CategoryChannel, Constants, Member, Message, TextChannel} from "eris";
 import {DataBase} from "../controller/DataBase";
+import {SubComMemberAssoziation} from "../model/SubComMemberAssoziation";
 
 
 export class Add extends Command {
@@ -18,8 +19,29 @@ export class Add extends Command {
                 ? (channel.guild.channels.get(handleId) as TextChannel).parentID
                 : '-1';
             const subcom = await DataBase.subComRepository.get(categoryId as string);
-            const member = await DataBase.memberRepository.get(memberId);
+            const category = channel.guild.channels.get(categoryId as string) as CategoryChannel;
             const disMember = channel.guild.members.get(memberId) as Member;
+
+            await category.editPermission(
+                disMember.id,
+                Constants.Permissions.readMessageHistory
+                    + Constants.Permissions.readMessages
+                    + Constants.Permissions.voiceConnect
+                    + Constants.Permissions.attachFiles
+                    + Constants.Permissions.sendMessages
+                    + Constants.Permissions.voiceUseVAD
+                    + Constants.Permissions.addReactions
+                    + Constants.Permissions.voiceSpeak,
+                0,
+                'member'
+            );
+
+            const subComMemberAssoziation = new SubComMemberAssoziation(
+                subcom,
+                memberId
+            )
+
+            await DataBase.subComMemberAssoziationRepository.insert(subComMemberAssoziation);
         } else throw Error('Wrong Arrangement of Arguments')
     }
 
