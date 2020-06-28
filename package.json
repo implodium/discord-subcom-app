@@ -2,10 +2,11 @@
   "name": "discord-subcom-bot",
   "version": "1.0.0",
   "description": "Bot for creating Sub Communities",
-  "main": "./src/index.ts",
+  "main": "src/Main/index.ts",
   "scripts": {
-    "docker-develop": "docker-compose -f docker-compose.develop.yml up -d --build",
-    "app": "tsc-watch --onSuccess \"node --inspect=0.0.0.0:9229 dist/\""
+    "deploy": "docker-compose up -d",
+    "compile": "tsc",
+    "app-in-docker": "PGUSER=app PGPASSWORD=app PGDATABASE=db PGHOST=postgres node ./dist/Main/index.js"
   },
   "keywords": [
     "node",
@@ -17,13 +18,20 @@
   "author": "QuirinEcker",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@types/jest": "^25.2.3",
     "@types/node": "^14.0.10",
     "discord.js": "^12.2.0",
     "eris": "^0.13.1",
-    "tsc-watch": "^4.2.8",
+    "jest": "^26.0.1",
+    "pg": "^8.2.1",
+    "ts-jest": "^26.1.0",
     "typescript": "^3.9.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/pg": "^7.14.3"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/implodium/discord-subcom-bot.git"
@@ -31,5 +39,6 @@
   "bugs": {
     "url": "https://github.com/implodium/discord-subcom-bot/issues"
   },
-  "homepage": "https://github.com/implodium/discord-subcom-bot#readme"
+  "homepage": "https://github.com/implodium/discord-subcom-bot#readme",
+  "optionalDependencies": {}
 }

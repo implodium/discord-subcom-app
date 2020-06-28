@@ -4,13 +4,7 @@ services:
   typescript:
     image: discord-subcom-bot/typescript
     container_name: discord-subcom-bot_typescript
-    build:
-      context: .
-      dockerfile: ./docker/typescript/develop.Dockerfile
-    ports:
-      - 9229:9229
-    volumes:
-    - ./:/usr/src/app
+    build: .
 
   postgres:
     image: postgres
@@ -19,5 +13,5 @@ services:
       POSTGRES_PASSWORD: app
       POSTGRES_USER: app
       POSTGRES_DB: db
-    ports:
-    - 5432:5432
+    volumes:
+    - ./db/:/var/lib/postgresql/data

@@ -182,3 +182,5 @@ $RECYCLE.BIN/
 # Own ignores
 
 config
+/db/
+/db_dev/
