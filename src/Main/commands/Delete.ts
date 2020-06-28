@@ -18,6 +18,7 @@ export class Delete extends Command{
             .catch(() => {
                 throw new BotError('This is no SubCom')
             })
+
         const guildMember = await DataBase.memberRepository.get(msg.author.id);
 
         if (Delete.isPermitted(msg.author, subcom)) {
