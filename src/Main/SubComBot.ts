@@ -1,7 +1,6 @@
 import {CommandClient} from "eris";
 import {readFileSync} from 'fs';
 import {ConfigInterface} from "./ConfigInterface";
-import {Echo} from "./commands/Echo";
 import {Command} from "./commands/Command";
 import {Settings} from "./commands/Settings";
 import {DataBase} from "./controller/DataBase";
@@ -52,7 +51,6 @@ export class SubComBot {
 
     private initializeCommands() {
         this.initializeCommand(new Create())
-        this.initializeCommand(new Echo())
         this.initializeCommand(new Settings())
         this.initializeCommand(new Delete())
         this.initializeCommand(new Add())
