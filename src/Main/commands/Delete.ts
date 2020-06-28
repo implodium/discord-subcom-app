@@ -15,6 +15,9 @@ export class Delete extends Command{
         const handle: TextChannel = channel.guild.channels.get(handleId) as TextChannel;
         const category: CategoryChannel = channel.guild.channels.get(handle.parentID as string) as CategoryChannel;
         const subcom: SubCom = await DataBase.subComRepository.get(handle.parentID as string)
+            .catch(() => {
+                throw new BotError('This is no SubCom')
+            })
         const guildMember = await DataBase.memberRepository.get(msg.author.id);
 
         if (Delete.isPermitted(msg.author, subcom)) {
