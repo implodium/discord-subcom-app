@@ -1,5 +1,6 @@
 import {Message} from "eris";
 import {BotError} from "../exceptions/BotError";
+import {SubComBot} from "../SubComBot";
 
 export abstract class Command {
 
@@ -22,6 +23,7 @@ export abstract class Command {
             if (e instanceof BotError) {
                 await msg.channel.createMessage(e.message)
             } else {
+                await msg.channel.createMessage(`Something went wrong! Please Contact the maintainer <@${SubComBot.instance.config.maintainer}>`)
                 console.log(e.message)
             }
         }
