@@ -12,8 +12,8 @@ import {Remove} from "./commands/Remove";
 
 export class SubComBot {
 
-    private config: ConfigInterface;
-    public bot: CommandClient;
+    public readonly config: ConfigInterface;
+    public readonly bot: CommandClient;
     public static instance: SubComBot;
 
     constructor() {
