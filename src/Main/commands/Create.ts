@@ -34,7 +34,7 @@ export class Create extends Command {
                 member.count++;
                 await DataBase.memberRepository.update(member)
             } else {
-                await msg.channel.createMessage('you have no subcoms left to create')
+                throw new BotError('you have no subcoms left to create')
             }
         } else throw new BotError('This feature is only supported in TextChannels')
 
