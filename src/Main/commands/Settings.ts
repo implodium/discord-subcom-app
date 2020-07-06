@@ -86,6 +86,9 @@ export class Settings extends Command {
                     }
                 }
                 break;
+            case 'admin-role':
+
+                break;
             default:
                 throw new Error("Invalid Settings Property")
 

@@ -1,6 +1,7 @@
 CREATE TABLE GUILD_CONFIG (
     guildId varchar(18),
     prefix varchar(30),
+    adminRole varchar(18),
     CONSTRAINT PK_GUILD_CONFIG PRIMARY KEY (guildId)
 );
 
