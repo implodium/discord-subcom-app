@@ -4,7 +4,7 @@ export class GuildConfig {
     public prefix: string;
     public readonly guildId: string;
     public permissions: Map<string, Permission>;
-    public readonly adminRole: string;
+    public adminRole: string;
 
     constructor(guildId: string, prefix: string, adminRole: string) {
         this.guildId = guildId;

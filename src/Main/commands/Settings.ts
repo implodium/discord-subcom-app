@@ -87,7 +87,21 @@ export class Settings extends Command {
                 }
                 break;
             case 'admin-role':
+                if (msg.channel instanceof TextChannel) {
+                    const id: string = msg.channel.guild.id
+                    const serverConfig: GuildConfig = await DataBase.guildConfigRepository.get(id);
 
+                    if (args.length === 1) {
+                        await msg.channel.createMessage('**Admin-Role: **' + serverConfig.adminRole);
+                    } else if (args.length === 2) {
+                        const adminRole = args[1];
+                        await msg.channel.createMessage(`Prefix was changed from ${serverConfig.adminRole} to ${adminRole}`)
+                        serverConfig.adminRole = adminRole;
+                        await DataBase.guildConfigRepository.update(serverConfig)
+                    }
+                } else {
+                    throw new BotError("This feature is only supported in text channels")
+                }
                 break;
             default:
                 throw new Error("Invalid Settings Property")

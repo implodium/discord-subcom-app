@@ -43,7 +43,7 @@ export class SubComBot {
 
     private async init(): Promise<void> {
         this.bot.on('guildCreate', async guild => {
-            await DataBase.guildConfigRepository.insert(new GuildConfig(guild.id, '.'))
+            await DataBase.guildConfigRepository.insert(new GuildConfig(guild.id, '.', '-1'))
         })
 
         this.initializeCommands();

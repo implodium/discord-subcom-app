@@ -15,7 +15,7 @@ beforeEach(async(done) => {
 })
 
 test('update',  async (done) => {
-    const serverConfig: GuildConfig = new GuildConfig('-1', '.');
+    const serverConfig: GuildConfig = new GuildConfig('-1', '.', '-1');
 
     await DataBase.guildConfigRepository.update(serverConfig);
     const result: QueryResult = await DataBase.query(
@@ -28,7 +28,7 @@ test('update',  async (done) => {
 })
 
 test('insert', async done => {
-    const serverConfig: GuildConfig = new GuildConfig('-2', '.');
+    const serverConfig: GuildConfig = new GuildConfig('-2', '.', '-1');
     await DataBase.guildConfigRepository.insert(serverConfig);
     const result: QueryResult = await DataBase.query(
         "SELECT prefix FROM guild_config WHERE guildid = '-2'"
