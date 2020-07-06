@@ -27,7 +27,8 @@ export class GuildConfigRepository extends Repository<GuildConfig> {
 
         return new GuildConfig(
             result.rows[0].guildid,
-            result.rows[0].prefix
+            result.rows[0].prefix,
+            result.rows[0].adminrole
         )
     }
 
