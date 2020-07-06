@@ -92,10 +92,10 @@ export class Settings extends Command {
                     const serverConfig: GuildConfig = await DataBase.guildConfigRepository.get(id);
 
                     if (args.length === 1) {
-                        await msg.channel.createMessage('**Admin-Role: **' + serverConfig.adminRole);
+                        await msg.channel.createMessage('**Admin-Role: **' + `<@&${serverConfig.adminRole}>`);
                     } else if (args.length === 2) {
-                        const adminRole = args[1];
-                        await msg.channel.createMessage(`Prefix was changed from ${serverConfig.adminRole} to ${adminRole}`)
+                        const adminRole = args[1].replace(/[^0-9]/g, '');
+                        await msg.channel.createMessage(`Prefix was changed from <@&${serverConfig.adminRole}> to <@&${adminRole}>`)
                         serverConfig.adminRole = adminRole;
                         await DataBase.guildConfigRepository.update(serverConfig)
                     }
