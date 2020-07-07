@@ -71,7 +71,7 @@ export class Settings extends Command {
                                         }
                                         guildConfig.permissions.set(permission.roleId, permission);
                                         await msg.channel.createMessage(
-                                            `Role <@&${permission.roleId}> can now create 5 SubCommunities`
+                                            `Role <@&${permission.roleId}> can now create ${permission.count} SubCommunities`
                                         );
                                     } else {
                                         throw new BotError("Invalid number of arguments")
