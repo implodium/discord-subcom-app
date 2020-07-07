@@ -83,7 +83,7 @@ export class Create extends Command {
                     id: defaultRole.id,
                     type: 'role',
                     deny: Constants.Permissions.all,
-                    allow: 0
+                    allow: Constants.Permissions.stream
                 },
                 {
                     id: member.id,
