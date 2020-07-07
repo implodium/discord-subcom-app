@@ -27,14 +27,15 @@ export class GuildConfigRepository extends Repository<GuildConfig> {
 
         return new GuildConfig(
             result.rows[0].guildid,
-            result.rows[0].prefix
+            result.rows[0].prefix,
+            result.rows[0].adminrole
         )
     }
 
     async update(object: GuildConfig): Promise<number> {
         const result = await DataBase.query(
-            "UPDATE guild_config SET prefix = $2 WHERE guildid = $1",
-            [object.guildId, object.prefix]
+            "UPDATE guild_config SET prefix = $2, adminrole = $3 WHERE guildid = $1",
+            [object.guildId, object.prefix, object.adminRole]
         );
 
         return result.rowCount == 1 ? result.rowCount : -1;

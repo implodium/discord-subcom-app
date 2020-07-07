@@ -39,7 +39,7 @@ test('insert', async done => {
     await DataBase.permissionRepository.insert(new Permission(
         '-3',
         3,
-        new GuildConfig('-3', '.')
+        new GuildConfig('-3', '.', '-1')
     ));
 
     const result: QueryResult = await DataBase.query(
@@ -56,7 +56,7 @@ test('update', async done => {
     await DataBase.permissionRepository.update(new Permission(
         '-1',
         1,
-        new GuildConfig('-1', ';')
+        new GuildConfig('-1', ';', '-1')
     ))
 
     const result: QueryResult = await DataBase.query(

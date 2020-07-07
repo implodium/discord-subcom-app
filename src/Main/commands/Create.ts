@@ -19,7 +19,7 @@ export class Create extends Command {
         const guildConfig: GuildConfig = await DataBase.guildConfigRepository.get(guild.id)
             .catch(err => {
                 console.log(err.stack)
-                return new GuildConfig('-1', '-1')
+                return new GuildConfig('-1', '-1', '-1')
             })
 
         const member: GuildMember = await DataBase.memberRepository.get(msg.author.id)

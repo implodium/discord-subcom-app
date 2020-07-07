@@ -7,11 +7,16 @@ services:
     build: .
 
   postgres:
-    image: postgres
+    build:
+      dockerfile: postgres.Dockerfile
+      context: .
+    image: discord-subcom-bot/postgres
     container_name: discord-subcom-bot_postgres
     environment:
       POSTGRES_PASSWORD: app
       POSTGRES_USER: app
       POSTGRES_DB: db
     volumes:
-    - ./db/:/var/lib/postgresql/data
+      - ./db/:/var/lib/postgresql/data
+    ports:
+      - 5420:5432
