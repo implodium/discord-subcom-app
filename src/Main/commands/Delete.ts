@@ -6,7 +6,7 @@ import {BotError} from "../exceptions/BotError";
 
 export class Delete extends Command{
     constructor() {
-        super('delete', 1, 1);
+        super('delete', 1, 1, 'delete a subcommunity');
     }
 
     protected async run(msg: Message, args: Array<string>): Promise<void> {

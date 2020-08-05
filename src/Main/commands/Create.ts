@@ -11,7 +11,12 @@ import {BotError} from "../exceptions/BotError";
 export class Create extends Command {
 
     public constructor() {
-        super('create', 1, Number.MAX_VALUE);
+        super(
+            'create',
+            1,
+            Number.MAX_VALUE,
+            'create a subcommunity'
+        );
     }
 
     protected async run(msg: Message, args: Array<string>): Promise<void> {

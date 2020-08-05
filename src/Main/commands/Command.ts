@@ -7,11 +7,15 @@ export abstract class Command {
     public name: string;
     private readonly minArgs: number;
     private readonly maxArgs: number;
+    public readonly description: string;
+    public readonly fullDescription: string;
 
-    protected constructor(name: string, minArgs: number, maxArgs: number) {
+    protected constructor(name: string, minArgs: number, maxArgs: number, description: string, fullDescription: string = '') {
         this.name = name
         this.minArgs = minArgs;
         this.maxArgs = maxArgs;
+        this.description = description
+        this.fullDescription = fullDescription
     }
 
 

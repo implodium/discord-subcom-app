@@ -7,7 +7,7 @@ import {SubCom} from "../model/SubCom";
 export class Remove extends Command {
 
     constructor() {
-        super('remove', 2, 2);
+        super('remove', 2, 2, 'remove someone from a subcommunity');
     }
 
     async run(msg: Message, args: Array<string>): Promise<void> {

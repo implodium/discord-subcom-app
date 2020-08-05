@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Develop" type="NodeJSConfigurationType" path-to-node="/usr/local/Cellar/node/14.4.0/bin/node" path-to-js-file="./dist/Main/index.js" working-dir="$PROJECT_DIR$">
+  <configuration default="false" name="Develop" type="NodeJSConfigurationType" path-to-node="node" path-to-js-file="./dist/Main/index.js" working-dir="$PROJECT_DIR$">
     <envs>
       <env name="PGUSER" value="app" />
       <env name="PGPASSWORD" value="app" />

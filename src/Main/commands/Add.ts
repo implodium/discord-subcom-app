@@ -9,7 +9,12 @@ import {SubCom} from "../model/SubCom";
 export class Add extends Command {
 
     constructor() {
-        super('add', 2,2);
+        super(
+            'add',
+            2,
+            2,
+            'add a member to a subcommunity'
+        );
     }
 
     protected async run(msg: Message, args: Array<string>): Promise<void> {

@@ -9,7 +9,7 @@ import {BotError} from "../exceptions/BotError";
 export class Settings extends Command {
 
     constructor() {
-        super('settings', 1, 4);
+        super('settings', 1, 4, 'setup the permissions for the subcommunity');
     }
 
     protected async run(msg: Message, args: Array<string>): Promise<void> {
