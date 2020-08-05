@@ -1,5 +1,20 @@
-.subcom settings <setting> <?method> <change>
+.subcom settings <setting> <?method> <?change>
+
+**setting: **
 
 **prefix: **
 - no method is needed. with no change supplied it will display the current prefix. With change supplied
 it will change the prefix to the supplied prefix
+
+**role: **
+This setting has two methods.
+
+- **set <@role> <count>: ** this method will give the @role a specific amount of (<count>) subcommunities to create
+- **delete <@role>: ** this method will remove every permission of the role (set it to 0)
+
+Is no method given it will tell you the already set permissions
+
+**admin-role: **
+
+- no method is needed. with no change supplied it will display the current admin-role. With change supplied
+it will change the admin-role to the supplied admin-role
