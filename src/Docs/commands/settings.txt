@@ -1,0 +1,5 @@
+.subcom settings <setting> <?method> <change>
+
+**prefix: **
+- no method is needed. with no change supplied it will display the current prefix. With change supplied
+it will change the prefix to the supplied prefix
