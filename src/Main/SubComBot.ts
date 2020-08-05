@@ -60,7 +60,11 @@ export class SubComBot {
     private initializeCommand(command: Command) {
         this.bot.registerCommand(
             command.name,
-            (msg, args) => command.execute(msg, args)
+            (msg, args) => command.execute(msg, args),
+            {
+                description: command.description,
+                fullDescription: command.fullDescription
+            }
         );
     }
 
