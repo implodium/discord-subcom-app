@@ -1,6 +1,7 @@
 import {Message} from "eris";
 import {BotError} from "../exceptions/BotError";
 import {SubComBot} from "../SubComBot";
+import fs from "fs";
 
 export abstract class Command {
 
@@ -10,12 +11,18 @@ export abstract class Command {
     public readonly description: string;
     public readonly fullDescription: string;
 
-    protected constructor(name: string, minArgs: number, maxArgs: number, description: string, fullDescription: string = '') {
+    protected constructor(name: string, minArgs: number, maxArgs: number, description: string) {
         this.name = name
         this.minArgs = minArgs;
         this.maxArgs = maxArgs;
         this.description = description
-        this.fullDescription = fullDescription
+
+        try {
+            this.fullDescription = fs.readFileSync(`./src/Docs/commands/${this.name}.txt`,{encoding: "utf8"})
+        } catch (e) {
+            this.fullDescription = "";
+            console.log(`Description File is missing for ${this.name}`)
+        }
     }
 
 
